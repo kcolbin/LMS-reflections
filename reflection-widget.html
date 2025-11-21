@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Reflection Widget</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  .container { max-width: 600px; margin: auto; }
+  textarea { width: 100%; height: 150px; padding: 10px; font-size: 16px; }
+  button { margin-top: 10px; padding: 10px 20px; font-size: 16px; }
+  .display { margin-top: 20px; padding: 10px; border: 1px solid #ccc; min-height: 80px; white-space: pre-wrap; background: #f9f9f9; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Type your reflection:</h2>
+  <textarea id="reflection"></textarea>
+  <br>
+  <button onclick="saveReflection()">Save</button>
+
+  <div class="display" id="displayText"></div>
+</div>
+
+<script>
+// Load previous value if exists
+window.onload = function() {
+  let stored = sessionStorage.getItem('learnerReflection');
+  if(stored) {
+    document.getElementById('reflection').value = stored;
+    document.getElementById('displayText').innerText = "Your previous response:\n" + stored;
+  }
+};
+
+function saveReflection() {
+  let text = document.getElementById('reflection').value.trim();
+  sessionStorage.setItem('learnerReflection', text);
+  document.getElementById('displayText').innerText = "Your saved response:\n" + text;
+  alert("Response saved!");
+}
+</script>
+</body>
+</html>
