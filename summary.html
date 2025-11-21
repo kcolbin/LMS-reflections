@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Reflection Summary</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  .summary { padding: 15px; border: 2px dashed #666; background: #f0f0f0; }
+</style>
+</head>
+<body>
+<h2>All Reflections</h2>
+<div class="summary" id="summaryDisplay"></div>
+
+<script>
+// Number of reflections
+const totalReflections = 3;
+
+function showSummary() {
+  const summaryEl = document.getElementById('summaryDisplay');
+  let html = '';
+  for(let i=1; i<=totalReflections; i++) {
+    const stored = sessionStorage.getItem('reflection'+i);
+    if(stored) {
+      html += `<strong>Reflection ${i}:</strong> ${stored}<br><br>`;
+    }
+  }
+  summaryEl.innerHTML = html || "No reflections saved yet.";
+}
+
+window.onload = showSummary;
+</script>
+</body>
+</html>
