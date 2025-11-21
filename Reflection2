@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Reflection 2</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  textarea { width: 100%; height: 150px; padding: 10px; font-size: 16px; }
+  button { margin-top: 10px; padding: 10px 20px; font-size: 16px; }
+  .display { margin-top: 15px; padding: 10px; border: 1px solid #ccc; min-height: 50px; white-space: pre-wrap; background: #f9f9f9; }
+</style>
+</head>
+<body>
+<h2>Reflection 2</h2>
+<textarea id="reflection" placeholder="Type your reflection here..."></textarea>
+<br>
+<button onclick="saveReflection()">Save Reflection</button>
+<div class="display" id="displayText"></div>
+
+<script>
+window.onload = function() {
+  const stored = sessionStorage.getItem('reflection2');
+  if(stored) {
+    document.getElementById('reflection').value = stored;
+    document.getElementById('displayText').innerText = "Saved: " + stored;
+  }
+};
+
+function saveReflection() {
+  const text = document.getElementById('reflection').value.trim();
+  sessionStorage.setItem('reflection2', text);
+  document.getElementById('displayText').innerText = "Saved: " + text;
+  alert("Reflection 2 saved!");
+}
+</script>
+</body>
+</html>
