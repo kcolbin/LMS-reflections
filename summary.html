@@ -20,7 +20,7 @@ function showSummary() {
   const summaryEl = document.getElementById('summaryDisplay');
   let html = '';
   for(let i=1; i<=totalReflections; i++) {
-    const stored = sessionStorage.getItem('reflection'+i);
+    const stored = localStorage.getItem('reflection'+i);
     if(stored) {
       html += `<strong>Reflection ${i}:</strong> ${stored}<br><br>`;
     }
