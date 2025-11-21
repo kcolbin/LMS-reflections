@@ -19,7 +19,7 @@
 
 <script>
 window.onload = function() {
-  const stored = sessionStorage.getItem('reflection3');
+  const stored = localStorage.getItem('reflection3');
   if(stored) {
     document.getElementById('reflection').value = stored;
     document.getElementById('displayText').innerText = "Saved: " + stored;
@@ -28,7 +28,7 @@ window.onload = function() {
 
 function saveReflection() {
   const text = document.getElementById('reflection').value.trim();
-  sessionStorage.setItem('reflection3', text);
+  localStorage.setItem('reflection3', text);
   document.getElementById('displayText').innerText = "Saved: " + text;
   alert("Reflection 3 saved!");
 }
