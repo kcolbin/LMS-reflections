@@ -13,8 +13,22 @@
 <div class="summary" id="summaryDisplay"></div>
 
 <script>
-// Number of reflections
-const totalReflections = 9;
+// Set how many reflections you have
+const totalReflections = 10;
+
+// MANUALLY ENTER TITLES HERE (index 0 = reflection1)
+const titles = [
+  "The qualities that make me uniquely myself:",
+  "Some strengths that exist in my community and how I might build on them:",
+  "What I know about the things my players might be dealing with and how can I learn more:",
+  "Some strategies I can use to make a connection with my players:",
+  "My plan for creating a team code with my players:",
+  "What I can do to create consistency:",
+  "My techniques for checking myself:",
+  "2 strategies I can use to uphold the team code:",
+  "How I can transition at the end of the season:",
+  "How I can give closure at the end of the season:",
+];
 
 function showSummary() {
   const summaryEl = document.getElementById('summaryDisplay');
@@ -25,8 +39,7 @@ function showSummary() {
     const stored = localStorage.getItem(key);
 
     if (stored) {
-      // NEW: get the stored title
-      const title = localStorage.getItem(key + '_title') || `Reflection ${i}`;
+      const title = titles[i - 1] || `Reflection ${i}`;
 
       html += `
         <div style="margin-bottom: 25px;">
@@ -43,6 +56,7 @@ function showSummary() {
 
   summaryEl.innerHTML = html || "No reflections saved yet.";
 }
+
 
 window.onload = showSummary;
 </script>
