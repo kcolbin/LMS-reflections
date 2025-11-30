@@ -57,7 +57,7 @@
 <div class="summary" id="summaryDisplay"></div>
   <button onclick="downloadPDF()" 
         style="margin: 20px 0; padding: 12px 18px; font-size: 16px;">
-  Download All Reflections as PDF
+  Download your reflections as PDF
 </button>
 
   <script src="PolySans-normal.js"></script>
@@ -114,7 +114,6 @@ async function downloadPDF() {
   const { jsPDF } = window.jspdf;
 
   // --- CONFIG ---
-  const logoURL = "https://YOURDOMAIN.com/logo.png"; // Change to your logo URL
   const pageWidth = 612;   // Letter size width in pt (8.5in * 72)
   const pageHeight = 792;  // Letter size height in pt (11in * 72)
   const leftMargin = 40;
