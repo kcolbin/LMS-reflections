@@ -121,21 +121,6 @@ async function downloadPDF() {
   const usableWidth = pageWidth - leftMargin - rightMargin;
   const lineHeight = 18;
 
-  // Load logo as Data URL
-  const logoData = await new Promise((resolve, reject) => {
-    const img = new Image();
-    img.crossOrigin = "Anonymous";
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
-      canvas.getContext("2d").drawImage(img, 0, 0);
-      resolve(canvas.toDataURL("image/png"));
-    };
-    img.onerror = reject;
-    img.src = logoURL;
-  });
-
   // Create Letter size PDF
   const doc = new jsPDF({
     unit: "pt",
@@ -143,11 +128,7 @@ async function downloadPDF() {
   });
 
   let y = 40; // start height
-
-  // Add logo
-  doc.addImage(logoData, "PNG", leftMargin, y, 120, 120);
-  y += 140; // move below logo
-
+ 
   // Add main header
   doc.setFont("PolySans", "bold");
   doc.setFontSize(22);
