@@ -14,17 +14,33 @@
 
 <script>
 // Number of reflections
-const totalReflections = 3;
+const totalReflections = 9;
 
 function showSummary() {
   const summaryEl = document.getElementById('summaryDisplay');
   let html = '';
-  for(let i=1; i<=totalReflections; i++) {
-    const stored = localStorage.getItem('reflection'+i);
-    if(stored) {
-      html += `<strong>Reflection ${i}:</strong> ${stored}<br><br>`;
+
+  for (let i = 1; i <= totalReflections; i++) {
+    const key = 'reflection' + i;
+    const stored = localStorage.getItem(key);
+
+    if (stored) {
+      // NEW: get the stored title
+      const title = localStorage.getItem(key + '_title') || `Reflection ${i}`;
+
+      html += `
+        <div style="margin-bottom: 25px;">
+          <div style="font-weight: bold; font-size: 20px; margin-bottom: 8px;">
+            ${title}
+          </div>
+          <div style="white-space: pre-wrap;">
+            ${stored}
+          </div>
+        </div>
+      `;
     }
   }
+
   summaryEl.innerHTML = html || "No reflections saved yet.";
 }
 
