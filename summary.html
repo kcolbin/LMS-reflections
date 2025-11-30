@@ -11,6 +11,13 @@
 <body>
 <h2>Your coach-mentor training reflections</h2>
 <div class="summary" id="summaryDisplay"></div>
+  <button onclick="downloadPDF()" 
+        style="margin: 20px 0; padding: 12px 18px; font-size: 16px;">
+  Download All Reflections as PDF
+</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 
 <script>
 // Set how many reflections you have
@@ -56,8 +63,62 @@ function showSummary() {
 
   summaryEl.innerHTML = html || "No reflections saved yet.";
 }
+  
+async function downloadPDF() {
+  const { jsPDF } = window.jspdf;
 
+  const doc = new jsPDF({
+    unit: "pt",
+    format: "a4"
+  });
+
+  const left = 40;      // left margin
+  let y = 50;           // start height
+  const lineHeight = 18;
+
+  // Title at the top
+  doc.setFont("Helvetica", "normal");
+  doc.setFontSize(22);
+  doc.text("Your Reflections Summary", left, y);
+  y += 40;
+
+  for (let i = 1; i <= totalReflections; i++) {
+    const key = "reflection" + i;
+    const stored = localStorage.getItem(key);
+
+    if (stored) {
+      const title = titles[i - 1] || `Reflection ${i}`;
+
+      // Add title in bold
+      doc.setFont("Helvetica", "bold");
+      doc.setFontSize(16);
+      doc.text(title, left, y);
+      y += 24;
+
+      // Add body text
+      doc.setFont("Helvetica", "normal");
+      doc.setFontSize(12);
+
+      const wrapped = doc.splitTextToSize(stored, 520);
+      wrapped.forEach(line => {
+        if (y > 780) {  // new page
+          doc.addPage();
+          y = 50;
+        }
+        doc.text(line, left, y);
+        y += lineHeight;
+      });
+
+      y += 20;  // spacing after reflection
+    }
+  }
+
+  doc.save("Reflections.pdf");
+}
+
+// Make sure your summary is shown on page load
 window.onload = showSummary;
+
 </script>
 </body>
 </html>
