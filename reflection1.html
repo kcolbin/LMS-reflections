@@ -72,8 +72,6 @@
     /* For page 2 → change to “reflection2”
        For page 3 → change to “reflection3”, etc. */
 
-    const REFLECTION_TITLE = document.querySelector("h2").innerText;
-
     /***************************************
      * LOAD SAVED RESPONSE (if any)
      ***************************************/
@@ -88,7 +86,6 @@
     function saveReflection() {
       const text = document.getElementById("response").value.trim();
       localStorage.setItem(REFLECTION_ID, text);
-      localStorage.setItem(REFLECTION_ID + "_title", REFLECTION_TITLE);
       document.getElementById("saved").innerText = "Saved!";
       setTimeout(() => {
         document.getElementById("saved").innerText = "";
