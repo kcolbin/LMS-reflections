@@ -160,17 +160,14 @@ async function downloadPDF() {
 
   // Add logo if loaded
   if (logoData) {
-  const naturalWidth = 354;   // your original dimensions
-  const naturalHeight = 105;
+  const targetWidth = 180;
+const scale = targetWidth / 354;
 
-  const maxWidth = usableWidth;   // or any width you prefer, e.g. 200
-  const scale = maxWidth / naturalWidth;
+const renderWidth = 180;
+const renderHeight = 105 * scale;
 
-  const renderWidth = naturalWidth * scale;
-  const renderHeight = naturalHeight * scale;
-
-  doc.addImage(logoData, "PNG", leftMargin, y, renderWidth, renderHeight);
-  y += renderHeight + 20;   // move down after logo
+doc.addImage(logoData, "PNG", leftMargin, y, renderWidth, renderHeight);
+y += renderHeight + 50;   // move down after logo
 }
  
   // Add main header
