@@ -62,6 +62,14 @@
 
   <script src="PolySans-normal.js"></script>
   <script src="PolySans-bold.js"></script>
+  <script>
+  if (window.jspdf && window.jspdf.jsPDF) {
+    window.jspdf.jsPDF.API.events.forEach(([event, handler]) => {
+      if (event === 'addFonts') handler.call(window.jspdf.jsPDF.API);
+    });
+  }
+  </script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 
