@@ -75,7 +75,7 @@
 
 <script>
 // Set how many reflections you have
-const totalReflections = 10;
+const totalReflections = 12;
 
 // MANUALLY ENTER TITLES HERE (index 0 = reflection1)
 const titles = [
@@ -86,6 +86,8 @@ const titles = [
   "My plan for creating a team code with my players:",
   "What I can do to create consistency:",
   "My techniques for checking myself:",
+  "What might be driving my 7-year-old player to run around, shout, laugh... and NOT pay attention:",
+  "How I can use C.A.T.C.H. and empathy to respond effectively to my 7-year-old player not paying attention:",
   "2 strategies I can use to uphold the team code:",
   "How I can help my players make a positive transition into the end of a season:",
   "How I can give closure at the end of the season:",
@@ -96,12 +98,36 @@ function showSummary() {
   let html = '';
 
   for (let i = 1; i <= totalReflections; i++) {
-    const key = 'reflection' + i;
+    const title = titles[i - 1] || `Reflection ${i}`;
+
+    // Default single-key behavior
+    const key = "reflection" + i;
     const stored = localStorage.getItem(key);
 
-    if (stored) {
-      const title = titles[i - 1] || `Reflection ${i}`;
+    // --- SPECIAL CASE: REFLECTION 8 HAS TWO PARTS ---
+    if (i === 8) {
+      const part1 = localStorage.getItem("reflection8_part1");
+      const part2 = localStorage.getItem("reflection8_part2");
 
+      // If either part exists, display them
+      if (part1 || part2) {
+        html += `
+          <div style="margin-bottom: 25px;">
+            <div style="font-weight: bold; font-size: 20px; margin-bottom: 8px;">
+              ${title}
+            </div>
+            <div style="white-space: pre-wrap;">
+              ${part1 ? part1 + "\\n\\n" : ""}
+              ${part2 ? part2 : ""}
+            </div>
+          </div>
+        `;
+        continue; // skip normal processing
+      }
+    }
+
+    // Normal behavior for reflections 1–7, 9–10
+    if (stored) {
       html += `
         <div style="margin-bottom: 25px;">
           <div style="font-weight: bold; font-size: 20px; margin-bottom: 8px;">
