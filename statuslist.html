@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Summary of your reflections</title>
+  <style>
+    @font-face {
+      font-family: "PolySans";
+      src: url("PolySans-Neutral.woff2") format("woff2"),
+           url("PolySans-Neutral.woff") format("woff");
+      font-weight: normal;
+    }
+    body {
+      font-family: "PolySans", sans-serif;
+      padding: 30px;
+      max-width: 800px;
+      margin: auto;
+      font-size: 18px;
+      line-height: 1.6;
+      background-color: #F3EBDD;
+    }
+    button {
+      padding: 10px 16px;
+      background: #1F3F59;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 8px;
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+    .toggle-group {
+      margin-bottom: 20px;
+    }
+    #progressBar {
+      margin-bottom: 25px;
+      font-size: 18px;
+    }
+    .reflection-item {
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+    .reflection-item h3 {
+      margin: 0 0 8px 0;
+      font-size: 20px;
+    }
+    .reflection-item p {
+      white-space: pre-wrap;
+      margin: 0 0 12px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Your Coach-Mentor Training Reflections</h1>
+
+  <div class="toggle-group">
+    <button id="btnStatus" onclick="showStatusList()">Status Only</button>
+    <button id="btnFull" onclick="showSummary()">Full Summary</button>
+  </div>
+
+  <div id="progressBar"></div>
+
+  <div id="summaryDisplay"></div>
+
+  <script>
+    // === CONFIG ===
+    const totalReflections = 12;
+
+    const titles = [
+      "The qualities that make me uniquely myself:",
+      "Some strengths that exist in my community and how I might build on them:",
+      "What I know about the challenges my players might be dealing with and how can I learn more:",
+      "Some strategies I can use to make a connection with my players:",
+      "My plan for creating a team code with my players:",
+      "What I can do to create consistency:",
+      "My techniques for checking myself:",
+      "What might be driving my 7-year-old player to run around, shout, laugh... and NOT pay attention:",
+      "How I can use C.A.T.C.H. and empathy to respond effectively to my 7-year-old player not paying attention:",
+      "2 strategies I can use to uphold the team code:",
+      "How I can help my players make a positive transition into the end of a season:",
+      "How I can give closure at the end of the season:"
+    ];
+
+
+    // === PROGRESS BAR ===
+    function updateProgressBar() {
+      let completed = 0;
+      for (let i = 1; i <= totalReflections; i++) {
+        const v = localStorage.getItem("reflection" + i);
+        if (v && v.trim().length > 0) completed++;
+      }
+      document.getElementById("progressBar").innerHTML =
+        `<strong>${completed} of ${totalReflections} reflections completed</strong>`;
+    }
+
+    // === FULL SUMMARY view (show all reflections + text or link) ===
+    function showSummary() {
+      updateProgressBar();
+      const summaryEl = document.getElementById('summaryDisplay');
+      let html = '';
+
+      for (let i = 1; i <= totalReflections; i++) {
+        const key = 'reflection' + i;
+        const stored = localStorage.getItem(key);
+        const title = titles[i - 1] || `Reflection ${i}`;
+
+        html += `<div class="reflection-item">`;
+        html += `<h3>${ stored ? "✔︎ " : "○ " } ${title}</h3>`;
+
+        if (stored && stored.trim().length > 0) {
+          html += `<p>${stored}</p>`;
+        } else {
+          html += `<p><em>Not completed yet.</em></p>`;
+          html += `<button onclick="window.location='reflection${i}.html'">Go to Reflection</button>`;
+        }
+
+        html += `</div>`;
+      }
+
+      summaryEl.innerHTML = html;
+    }
+
+    // === STATUS LIST view (compact list only) ===
+    function showStatusList() {
+      updateProgressBar();
+      const summaryEl = document.getElementById('summaryDisplay');
+      let html = '<ul style="list-style: none; padding-left: 0;">';
+
+      for (let i = 1; i <= totalReflections; i++) {
+        const key = "reflection" + i;
+        const stored = localStorage.getItem(key);
+        const title = titles[i - 1] || `Reflection ${i}`;
+
+        html += `<li style="margin-bottom: 20px; background: white; border-radius: 8px; padding: 12px;">`;
+        html += `<div style="font-weight: bold; font-size: 18px;">${ stored ? "✔︎ " : "○ " } ${title}</div>`;
+
+        if (stored && stored.trim().length > 0) {
+          html += `<div style="color: green; font-size: 16px;">Completed</div>`;
+        } else {
+          html += `<button onclick="window.location='reflection${i}.html'">Go to Reflection</button>`;
+        }
+
+        html += `</li>`;
+      }
+
+      html += '</ul>';
+      summaryEl.innerHTML = html;
+    }
+
+    // On load, show status list
+    window.onload = showStatusList;
+  </script>
+
+</body>
+</html>
