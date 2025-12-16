@@ -56,18 +56,22 @@
 
 <body>
 
-  <h2>Practicing C.A.T.C.H.</h2>
-  <h3>Imagine: Your 7-year-old player is running around, shouting, laughing... and NOT paying attention.</h3>
-  <p>What might be driving this behavior?</p>
-
+  <h2>Can you remember a time when someone showed they believed in you? Who was it? What did they do?</h2>
+  
   <!-- FIRST INPUT -->
   <textarea id="response1"></textarea>
 
   <!-- SECOND QUESTION -->
-  <p>How can you use C.A.T.C.H. and empathy to respond effectively?</p>
+  <h2>How did it feel?</h2>
 
   <!-- SECOND INPUT -->
   <textarea id="response2"></textarea>
+
+  <!-- THIRD QUESTION -->
+  <h2>What can you do to show belief in your players?</h2>
+
+  <!-- THIRD INPUT -->
+  <textarea id="response3"></textarea>
 
   <button onclick="saveReflection()">Save Reflection</button>
   <div id="saved" class="saved-note"></div>
@@ -76,8 +80,9 @@
     /***************************************
      * CONFIG — TWO STORAGE KEYS FOR THIS PAGE
      ***************************************/
-    const REFLECTION_KEY_1 = "reflection8";
-    const REFLECTION_KEY_2 = "reflection9";
+    const REFLECTION_KEY_1 = "reflection2-2";
+    const REFLECTION_KEY_2 = "reflection2-3";
+    const REFLECTION_KEY_3 = "reflection2-4";
 
     /***************************************
      * LOAD EXISTING RESPONSES
@@ -88,15 +93,20 @@
     const saved2 = localStorage.getItem(REFLECTION_KEY_2);
     if (saved2) document.getElementById("response2").value = saved2;
 
+    const saved3 = localStorage.getItem(REFLECTION_KEY_3);
+    if (saved2) document.getElementById("response2").value = saved3;
+
     /***************************************
      * SAVE FUNCTION
      ***************************************/
     function saveReflection() {
       const text1 = document.getElementById("response1").value.trim();
       const text2 = document.getElementById("response2").value.trim();
+      const text2 = document.getElementById("response3").value.trim();
 
       localStorage.setItem(REFLECTION_KEY_1, text1);
       localStorage.setItem(REFLECTION_KEY_2, text2);
+      localStorage.setItem(REFLECTION_KEY_3, text3);
 
       document.getElementById("saved").innerText = "Saved!";
       setTimeout(() => {
