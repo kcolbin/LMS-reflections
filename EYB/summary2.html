@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Summary of your coach-mentor training reflections</title>
+ <style>
+    /* Load PolySans — replace URLs with your file locations */
+    @font-face {
+      font-family: "PolySans";
+      src: url("PolySans-Neutral.woff2") format("woff2"),
+           url("PolySans-Neutral.woff") format("woff");
+      font-weight: normal;
+    }
+
+    body {
+      font-family: "PolySans", sans-serif;
+      padding: 30px;
+      max-width: 700px;
+      margin: auto;
+      font-size: 18px;
+      line-height: 1.6;
+      background-color: #F3EBDD;
+    }
+
+    textarea {
+      width: 100%;
+      height: 180px;
+      font-family: "PolySans", sans-serif;
+      font-size: 16px;
+      padding: 12px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-family: "PolySans", sans-serif;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background-color: #1F3F59;
+      color: white;
+    }
+
+    .saved-note {
+      margin-top: 10px;
+      color: #008000;
+      font-size: 14px;
+    }
+ 
+</style>
+</head>
+<body>
+<h2>Your coach-mentor training reflections</h2>
+<div class="summary" id="summaryDisplay"></div>
+  <button onclick="downloadPDF()" 
+        style="margin: 20px 0; padding: 12px 18px; font-size: 16px;">
+  Download your reflections as PDF
+</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  
+  <script src="PolySans-normal.js"></script>
+  <script src="PolySans-bold.js"></script>
+  <script>
+  if (window.jspdf && window.jspdf.jsPDF) {
+    window.jspdf.jsPDF.API.events.forEach(([event, handler]) => {
+      if (event === 'addFonts') handler.call(window.jspdf.jsPDF.API);
+    });
+  }
+  </script>
+
+<script>
+// Set how many reflections you have
+const totalReflections = 14;
+
+// MANUALLY ENTER TITLES HERE (index 0 = reflection1)
+const titles = [
+  "The qualities that make me uniquely myself:",
+  "Some strengths that exist in my community and how I might build on them:",
+  "What I know about the challenges my players might be dealing with and how can I learn more:",
+  "Some strategies I can use to make a connection with my players:",
+  "My plan for creating a team code with my players:",
+  "What I can do to create consistency:",
+  "My techniques for checking myself:",
+  "What might be driving my 7-year-old player to run around, shout, laugh... and NOT pay attention:",
+  "How I can use C.A.T.C.H. and empathy to respond effectively to my 7-year-old player not paying attention:",
+  "What might be driving my 14-year-old player to refuse to do the 300m hurdles:",
+  "How I can use C.A.T.C.H. and empathy to respond effectively to my 14-year-old player not paying attention:",
+  "2 strategies I can use to uphold the team code:",
+  "How I can help my players make a positive transition into the end of a season:",
+  "How I can give closure at the end of the season:",
+];
+
+function showSummary() {
+  const summaryEl = document.getElementById('summaryDisplay');
+  let html = '';
+
+  for (let i = 1; i <= totalReflections; i++) {
+    const title = titles[i - 1] || `Reflection ${i}`;
+    const key = "reflection2-" + i;
+    const stored = localStorage.getItem(key);
+
+    if (!stored) continue;
+
+    html += `
+      <div style="margin-bottom: 25px;">
+        <div style="font-weight: bold; font-size: 20px; margin-bottom: 8px;">
+          ${title}
+        </div>
+        <div style="white-space: pre-wrap;">
+          ${stored}
+        </div>
+      </div>
+    `;
+  }
+
+  summaryEl.innerHTML = html || "No reflections saved yet.";
+}
+
+  
+async function downloadPDF() {
+  const { jsPDF } = window.jspdf;
+
+  // --- CONFIG ---
+  const logoURL = "https://images.squarespace-cdn.com/content/5b1dd63f620b85685e2e9978/15782fbc-a9dc-4f5b-94f2-a6f9cf73c65a/Foundation-YC-lockup-sm.png"; 
+  const pageWidth = 612;   // Letter size width in pt (8.5in * 72)
+  const pageHeight = 792;  // Letter size height in pt (11in * 72)
+  const leftMargin = 60;
+  const rightMargin = 60;
+  const usableWidth = pageWidth - leftMargin - rightMargin;
+  const lineHeight = 18;
+
+  // Load logo as data URL
+  let logoData = null;
+  try {
+    logoData = await new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = "Anonymous";
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        canvas.getContext("2d").drawImage(img, 0, 0);
+        resolve(canvas.toDataURL("image/png"));
+      };
+      img.onerror = reject;
+      img.src = logoURL;
+    });
+  } catch(e) {
+    console.warn("Logo could not be loaded, continuing without it.");
+  }
+
+  // Create Letter size PDF
+  const doc = new jsPDF({
+    unit: "pt",
+    format: "letter"
+  });
+
+  let y = 40; // start height
+
+  // Add logo if loaded
+  if (logoData) {
+  const targetWidth = 180;
+const scale = targetWidth / 354;
+
+const renderWidth = 180;
+const renderHeight = 105 * scale;
+
+doc.addImage(logoData, "PNG", leftMargin, y, renderWidth, renderHeight);
+y += renderHeight + 50;   // move down after logo
+}
+ 
+  // Add main header
+  doc.setFont("PolySans", "bold");
+  doc.setFontSize(22);
+
+  // Wrap header text
+  const header = "Your Reflections Summary";
+  const headerLines = doc.splitTextToSize(header, usableWidth);
+  headerLines.forEach(line => {
+    if (y > pageHeight - 50) { doc.addPage(); y = 40; }
+    doc.text(line, leftMargin, y);
+    y += lineHeight;
+  });
+  y += 20;
+
+  // --- Loop through reflections ---
+  for (let i = 1; i <= totalReflections; i++) {
+    const key = "reflection2-" + i;
+    const stored = localStorage.getItem(key);
+    if (!stored) continue;
+
+    const title = titles[i - 1] || `Reflection ${i}`;
+
+    // Add title in bold
+    doc.setFont("PolySans", "bold");
+    doc.setFontSize(16);
+    const titleLines = doc.splitTextToSize(title, usableWidth);
+    titleLines.forEach(line => {
+      if (y > pageHeight - 50) { doc.addPage(); y = 40; }
+      doc.text(line, leftMargin, y);
+      y += lineHeight;
+    });
+    y += 8; // small spacing before body
+
+    // Add body text
+    doc.setFont("PolySans", "normal");
+    doc.setFontSize(12);
+    const wrapped = doc.splitTextToSize(stored, usableWidth);
+    wrapped.forEach(line => {
+      if (y > pageHeight - 50) { doc.addPage(); y = 40; }
+      doc.text(line, leftMargin, y);
+      y += lineHeight;
+    });
+
+    y += 20; // spacing between reflections
+  }
+
+  doc.save("Reflections.pdf");
+}
+
+// Make sure your summary is shown on page load
+window.onload = showSummary;
+
+</script>
+</body>
+</html>
