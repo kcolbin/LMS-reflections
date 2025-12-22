@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Summary of your reflections</title>
+  <style>
+    @font-face {
+      font-family: "PolySans";
+      src: url("PolySans-Neutral.woff2") format("woff2"),
+           url("PolySans-Neutral.woff") format("woff");
+      font-weight: normal;
+    }
+
+    body {
+      font-family: "PolySans", sans-serif;
+      padding: 30px;
+      max-width: 800px;
+      margin: auto;
+      font-size: 18px;
+      line-height: 1.6;
+      background-color: #F3EBDD;
+    }
+
+    button {
+      padding: 10px 16px;
+      background: #1F3F59;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 12px;
+    }
+
+    #progressBar {
+      margin-bottom: 25px;
+      font-size: 18px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .reflection-item {
+      padding: 12px 0;
+      border-top: 1px solid #ddd;
+    }
+
+    .reflection-item:first-child {
+      border-top: none;
+    }
+
+    .reflection-item h3 {
+      margin: 0 0 6px 0;
+      font-size: 18px;
+    }
+
+    .reflection-item p {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+
+    .not-complete {
+      font-style: italic;
+      color: #666;
+    }
+
+    .section-footer {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 2px solid #eee;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Your Coach-Mentor Training Reflections</h1>
+
+<div id="progressBar"></div>
+<div id="summaryDisplay"></div>
+
+<script>
+const totalReflections = 15;
+
+/* Titles shown WHEN COMPLETED */
+const completedTitles = [
+  "What being a coach-mentor means to me:",
+  "A time someone showed they believed in me:",
+  "How it felt:",
+  "What I can do to show belief in my players:",
+  "How my coaches coached me:",
+  "How I've evolved since I started coaching:",
+  "My thoughts on Mulch's evolution:",
+  "An example of a mistake I needed to own:",
+  "Why it's hard to own mistakes:",
+  "A time I didn't feel I belonged:",
+  "A time I did feel I belonged:",
+  "Strategies for addressing sideways behavior from Adrian and JT:",
+  "Lessons from sport I've applied in other areas of my life:",
+  "How I can help players set goals for themselves:",
+  "How I can help players connect what they learn with me to their lives outside soccer:",
+];
+
+/* Titles shown WHEN NOT COMPLETED */
+const pendingTitles = [
+  "What does being a coach-mentor mean to you?",
+  "Can you remember a time when someone showed they believed in you? Who was it / what did they do?",
+  "How did it feel?",
+  "What can you do to show belief in your players?",
+  "How did your coaches coach you? What did they do that was effective or ineffective for you?",
+  "How have you evolved since you started coaching?",
+  "Does Mulch’s reflection on his own journey resonate with you? Why or why not?",
+  "What’s an example of a mistake you made that you needed to own?",
+  "What makes it hard to own mistakes?",
+  "What’s an example of a time you didn’t feel like you belonged?",
+  "What’s an example of a time you did feel like you belonged?",
+  "What strategies for addressing sideways behaviour did you notice from Adrian and JT?",
+  "What lessons from sport have you transferred to other areas of your life?",
+  "How can you help your players set goals for themselves?",
+  "How can you help players connect learning to life outside soccer?",
+];
+
+/* Sections */
+const sections = [
+  { title: "Part One: The Impact of a Coach", video: "vid2-1.html", reflections: [1] },
+  { title: "Part Two: The Power of Investing in Players", video: "vid2-2.html", reflections: [2,3,4] },
+  { title: "Part Three: Evolving as a Coach", video: "vid2-3.html", reflections: [5,6,7] },
+  { title: "Part Four: Owning Mistakes", video: "vid2-4.html", reflections: [8,9] },
+  { title: "Part Five: Empathy and Belonging", video: "vid2-5.html", reflections: [10,11] },
+  { title: "Part Six: C.A.T.C.H. and Timing", video: "vid2-6.html", reflections: [12] },
+  { title: "Part Seven: S.M.A.R.T. Goals & Life Skills", video: "vid2-7.html", reflections: [13,14,15] },
+];
+
+function updateProgressBar() {
+  let completed = 0;
+  for (let i = 1; i <= totalReflections; i++) {
+    const v
