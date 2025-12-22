@@ -97,7 +97,7 @@ const titles = [
     function updateProgressBar() {
       let completed = 0;
       for (let i = 1; i <= totalReflections; i++) {
-        const v = localStorage.getItem("reflection" + i);
+        const v = localStorage.getItem("reflection2-" + i);
         if (v && v.trim().length > 0) completed++;
       }
       document.getElementById("progressBar").innerHTML =
@@ -111,7 +111,7 @@ const titles = [
       let html = '';
 
       for (let i = 1; i <= totalReflections; i++) {
-        const key = 'reflection' + i;
+        const key = 'reflection2-' + i;
         const stored = localStorage.getItem(key);
         const title = titles[i - 1] || `Reflection ${i}`;
 
@@ -122,7 +122,7 @@ const titles = [
           html += `<p>${stored}</p>`;
         } else {
           html += `<p><em>Not completed yet.</em></p>`;
-          html += `<button onclick="window.location='reflection${i}.html'">Go to Reflection</button>`;
+          html += `<button onclick="window.location='subreflection2-${i}.html'">Go to Reflection</button>`;
         }
 
         html += `</div>`;
@@ -138,7 +138,7 @@ const titles = [
       let html = '<ul style="list-style: none; padding-left: 0;">';
 
       for (let i = 1; i <= totalReflections; i++) {
-        const key = "reflection" + i;
+        const key = "reflection2-" + i;
         const stored = localStorage.getItem(key);
         const title = titles[i - 1] || `Reflection ${i}`;
 
