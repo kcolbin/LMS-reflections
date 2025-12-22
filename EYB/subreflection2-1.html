@@ -66,41 +66,39 @@
   <div id="saved" class="saved-note"></div>
 
   <script>
-    /***************************************
-     * CONFIG — SET YOUR UNIQUE REFLECTION ID
-     ***************************************/
-    const REFLECTION_ID = "reflection2-1";  
-    /* For page 2 → change to “reflection2”
-       For page 3 → change to “reflection3”, etc. */
+  /***************************************
+   * CONFIG — SET YOUR UNIQUE REFLECTION ID
+   ***************************************/
+  const REFLECTION_ID = "reflection2-1";
+  const RETURN_URL = "statuslist.html";
 
-    /***************************************
-     * LOAD SAVED RESPONSE (if any)
-     ***************************************/
-    const saved = localStorage.getItem(REFLECTION_ID);
-    if (saved) {
-      document.getElementById("response").value = saved;
-    }
+  /***************************************
+   * LOAD SAVED RESPONSE (if any)
+   ***************************************/
+  const saved = localStorage.getItem(REFLECTION_ID);
+  if (saved) {
+    document.getElementById("response").value = saved;
+  }
 
-    /***************************************
-     * SAVE FUNCTION
-     ***************************************/
-    function saveReflection() {
-      const text = document.getElementById("response").value.trim();
-      localStorage.setItem(REFLECTION_ID, text);
-      document.getElementById("saved").innerText = "Saved!";
-      setTimeout(() => {
-        document.getElementById("saved").innerText = "";
-      }, 1500);
+  /***************************************
+   * SAVE ONLY
+   ***************************************/
+  function saveReflection() {
+    const text = document.getElementById("response").value.trim();
+    localStorage.setItem(REFLECTION_ID, text);
+  }
 
-     /***************************************
-     * SAVE AND RETURN FUNCTION
-     ***************************************/
-    function saveAndReturn() {
-      saveReflection();                 // save to localStorage
-  window.location.href = "summary2.html"; // redirect
-      }
-    }
-  </script>
+  /***************************************
+   * SAVE + RETURN
+   ***************************************/
+  function saveAndReturn() {
+    saveReflection();
+    document.getElementById("saved").innerText = "Saved!";
+  setTimeout(() => {
+    window.location.href = RETURN_URL;
+  }, 300);  }
+</script>
+
 
 </body>
 </html>
