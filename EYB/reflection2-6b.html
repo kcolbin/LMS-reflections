@@ -2,10 +2,9 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>Time to reflect</title>
+  <title>Reflect again</title>
 
   <style>
-    /* Load PolySans — replace URLs with your file locations */
     @font-face {
       font-family: "PolySans";
       src: url("PolySans-Neutral.woff2") format("woff2"),
@@ -25,7 +24,7 @@
 
     textarea {
       width: 100%;
-      height: 180px;
+      height: 220px;
       font-family: "PolySans", sans-serif;
       font-size: 16px;
       padding: 12px;
@@ -46,49 +45,49 @@
       color: white;
     }
 
-    .saved-note {
-      margin-top: 10px;
-      color: #008000;
+    .hint {
       font-size: 14px;
+      color: #555;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 
 <body>
 
-  <h3>What strategies for addressing sideways behaviour did you notice from Adrian and JT?</h3>
-  
-  <textarea id="response"></textarea>
-  <button onclick="saveReflection()">Save Reflection</button>
+  <h2>Reflect again</h2>
+  <p>Now that you've seen this video again, anything you want to add to your answer?</p>
 
-  <div id="saved" class="saved-note"></div>
+  <div class="hint">
+    Your original reflection is shown below — feel free to edit or expand it.
+  </div>
+
+  <textarea id="response"></textarea>
+
+  <button onclick="saveAndReturn()">Update Reflection & Return</button>
 
   <script>
     /***************************************
-     * CONFIG — SET YOUR UNIQUE REFLECTION ID
+     * CONFIG
      ***************************************/
-    const REFLECTION_ID = "reflection2-12";  
-    /* For page 2 → change to “reflection2”
-       For page 3 → change to “reflection3”, etc. */
+    const REFLECTION_ID = "reflection2-12";   // SAME key as first page
+    const RETURN_URL = "summary.html";
 
     /***************************************
-     * LOAD SAVED RESPONSE (if any)
+     * LOAD ORIGINAL REFLECTION
      ***************************************/
-    const saved = localStorage.getItem(REFLECTION_ID);
-    if (saved) {
-      document.getElementById("response").value = saved;
+    const existing = localStorage.getItem(REFLECTION_ID);
+    if (existing) {
+      document.getElementById("response").value = existing;
     }
 
     /***************************************
-     * SAVE FUNCTION
+     * SAVE + REDIRECT
      ***************************************/
-    function saveReflection() {
-      const text = document.getElementById("response").value.trim();
-      localStorage.setItem(REFLECTION_ID, text);
-      document.getElementById("saved").innerText = "Saved!";
-      setTimeout(() => {
-        document.getElementById("saved").innerText = "";
-      }, 1500);
+    function saveAndReturn() {
+      const updated = document.getElementById("response").value.trim();
+      localStorage.setItem(REFLECTION_ID, updated);
+      window.location.href = RETURN_URL;
     }
   </script>
 
