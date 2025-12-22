@@ -56,36 +56,58 @@
 
 <body>
 
-  <h2>What does being a coach-mentor mean to you?</h2>
-  <p>For example: supporting young people…
-  </p>
+   <h3>Can you remember a time when someone showed they believed in you? Who was it? What did they do?</h3>
+  
+  <!-- FIRST INPUT -->
+  <textarea id="response1"></textarea>
 
-  <textarea id="response"></textarea>
-  <button onclick="saveAndReturn()">Save and Return to Summary</button>
+  <!-- SECOND QUESTION -->
+  <h3>How did it feel?</h3>
 
+  <!-- SECOND INPUT -->
+  <textarea id="response2"></textarea>
+
+  <!-- THIRD QUESTION -->
+  <h3>What can you do to show belief in your players?</h3>
+
+  <!-- THIRD INPUT -->
+  <textarea id="response3"></textarea>
+
+  <button onclick="saveReflection()">Save Reflection</button>
   <div id="saved" class="saved-note"></div>
 
   <script>
-  /***************************************
-   * CONFIG — SET YOUR UNIQUE REFLECTION ID
-   ***************************************/
-  const REFLECTION_ID = "reflection2-2";
-  const RETURN_URL = "statuslist-2.html";
+    /***************************************
+     * CONFIG — TWO STORAGE KEYS FOR THIS PAGE
+     ***************************************/
+    const REFLECTION_KEY_1 = "reflection2-2";
+    const REFLECTION_KEY_2 = "reflection2-3";
+    const REFLECTION_KEY_3 = "reflection2-4";
 
-  /***************************************
-   * LOAD SAVED RESPONSE (if any)
-   ***************************************/
-  const saved = localStorage.getItem(REFLECTION_ID);
-  if (saved) {
-    document.getElementById("response").value = saved;
-  }
+    /***************************************
+     * LOAD EXISTING RESPONSES
+     ***************************************/
+    const saved1 = localStorage.getItem(REFLECTION_KEY_1);
+    if (saved1) document.getElementById("response1").value = saved1;
 
-  /***************************************
-   * SAVE ONLY
-   ***************************************/
-  function saveReflection() {
-    const text = document.getElementById("response").value.trim();
-    localStorage.setItem(REFLECTION_ID, text);
+    const saved2 = localStorage.getItem(REFLECTION_KEY_2);
+    if (saved2) document.getElementById("response2").value = saved2;
+
+    const saved3 = localStorage.getItem(REFLECTION_KEY_3);
+    if (saved3) document.getElementById("response3").value = saved3;
+
+    /***************************************
+     * SAVE FUNCTION
+     ***************************************/
+    function saveReflection() {
+      const text1 = document.getElementById("response1").value.trim();
+      const text2 = document.getElementById("response2").value.trim();
+      const text3 = document.getElementById("response3").value.trim();
+
+      localStorage.setItem(REFLECTION_KEY_1, text1);
+      localStorage.setItem(REFLECTION_KEY_2, text2);
+      localStorage.setItem(REFLECTION_KEY_3, text3);
+
   }
 
   /***************************************
