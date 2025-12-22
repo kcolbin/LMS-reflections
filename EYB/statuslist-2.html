@@ -73,11 +73,6 @@
 
 <h1>Your Coach-Mentor Training Reflections</h1>
 
-<div class="toggle-group">
-  <button onclick="showStatusList()">Status Only</button>
-  <button onclick="showSummary()">See Your Reflections</button>
-</div>
-
 <div id="progressBar"></div>
 <div id="summaryDisplay"></div>
 
@@ -125,23 +120,23 @@
       `<strong>${completed} of ${totalReflections} reflections completed</strong>`;
   }
 
-  // FULL SUMMARY VIEW
-  function showSummary() {
+ function showSummary() {
     updateProgressBar();
     const summaryEl = document.getElementById('summaryDisplay');
     let html = '';
 
     sections.forEach(section => {
       html += `<div class="section">`;
-      html += `<h2>${section.title}</h2>`;
-      html += `<button onclick="window.location='${section.video}'">Revisit Video</button>`;
+      html += `<div class="section-header"><h2>${section.title}</h2><button onclick="window.location='${section.video}'">Revisit Video</button></div>`;
 
       section.reflections.forEach(i => {
         const key = 'reflection2-' + i;
         const stored = localStorage.getItem(key);
         const title = titles[i-1] || `Reflection ${i}`;
         html += `<div class="reflection-item"><h3>${stored ? "✔︎ " : "○ "} ${title}</h3>`;
-        html += stored && stored.trim().length > 0 ? `<p>${stored}</p>` : `<p><em>Not completed yet.</em></p><button onclick="window.location='subreflection2-${i}.html'">Go to Reflection</button>`;
+        html += stored && stored.trim().length > 0 
+          ? `<p>${stored}</p>` 
+          : `<div style="margin-top:6px;"><button onclick="window.location='subreflection2-${i}.html'">Complete Reflection Now</button></div>`;
         html += `</div>`;
       });
 
@@ -151,33 +146,7 @@
     summaryEl.innerHTML = html;
   }
 
-  // STATUS LIST VIEW
-  function showStatusList() {
-    updateProgressBar();
-    const summaryEl = document.getElementById('summaryDisplay');
-    let html = '';
-
-    sections.forEach(section => {
-      html += `<div class="section">`;
-      html += `<h2>${section.title}</h2>`;
-      html += `<button onclick="window.location='${section.video}'">Revisit Video</button>`;
-
-      section.reflections.forEach(i => {
-        const key = 'reflection2-' + i;
-        const stored = localStorage.getItem(key);
-        const title = titles[i-1] || `Reflection ${i}`;
-        html += `<div class="reflection-item"><strong>${stored ? "✔︎ " : "○ "} ${title}</strong>`;
-        html += stored && stored.trim().length > 0 ? `<div style="color:green">Completed</div>` : `<button onclick="window.location='subreflection2-${i}.html'">Go to Reflection</button>`;
-        html += `</div>`;
-      });
-
-      html += `</div>`;
-    });
-
-    summaryEl.innerHTML = html;
-  }
-
-  window.onload = showStatusList;
+  window.onload = showSummary;
 </script>
 
 </body>
