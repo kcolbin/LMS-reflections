@@ -8,7 +8,6 @@
       font-family: "PolySans";
       src: url("PolySans-Neutral.woff2") format("woff2"),
            url("PolySans-Neutral.woff") format("woff");
-      font-weight: normal;
     }
 
     body {
@@ -119,34 +118,90 @@ const completedTitles = [
 /* Titles shown WHEN NOT COMPLETED */
 const pendingTitles = [
   "What does being a coach-mentor mean to you?",
-  "Can you remember a time when someone showed they believed in you? Who was it / what did they do?",
+  "Can you remember a time when someone showed they believed in you?",
   "How did it feel?",
   "What can you do to show belief in your players?",
-  "How did your coaches coach you? What did they do that was effective or ineffective for you?",
+  "How did your coaches coach you?",
   "How have you evolved since you started coaching?",
-  "Does Mulch’s reflection on his own journey resonate with you? Why or why not?",
+  "Does Mulch’s reflection on his own journey resonate with you?",
   "What’s an example of a mistake you made that you needed to own?",
   "What makes it hard to own mistakes?",
   "What’s an example of a time you didn’t feel like you belonged?",
   "What’s an example of a time you did feel like you belonged?",
-  "What strategies for addressing sideways behaviour did you notice from Adrian and JT?",
-  "What lessons from sport have you transferred to other areas of your life?",
-  "How can you help your players set goals for themselves?",
+  "What strategies for addressing sideways behaviour did you notice?",
+  "What lessons from sport have you transferred to other areas of life?",
+  "How can you help players set goals for themselves?",
   "How can you help players connect learning to life outside soccer?",
 ];
 
-/* Sections */
+/* Sections now include section-level reflection page */
 const sections = [
-  { title: "Part One: The Impact of a Coach", video: "vid2-1.html", reflections: [1] },
-  { title: "Part Two: The Power of Investing in Players", video: "vid2-2.html", reflections: [2,3,4] },
-  { title: "Part Three: Evolving as a Coach", video: "vid2-3.html", reflections: [5,6,7] },
-  { title: "Part Four: Owning Mistakes", video: "vid2-4.html", reflections: [8,9] },
-  { title: "Part Five: Empathy and Belonging", video: "vid2-5.html", reflections: [10,11] },
-  { title: "Part Six: C.A.T.C.H. and Timing", video: "vid2-6.html", reflections: [12] },
-  { title: "Part Seven: S.M.A.R.T. Goals & Life Skills", video: "vid2-7.html", reflections: [13,14,15] },
+  { title: "Part One: The Impact of a Coach", video: "vid2-1.html", startPage: "subreflection2-1.html", reflections: [1] },
+  { title: "Part Two: The Power of Investing in Players", video: "vid2-2.html", startPage: "subreflection2-2.html", reflections: [2,3,4] },
+  { title: "Part Three: Evolving as a Coach", video: "vid2-3.html", startPage: "subreflection2-3.html", reflections: [5,6,7] },
+  { title: "Part Four: Owning Mistakes", video: "vid2-4.html", startPage: "subreflection2-4.html", reflections: [8,9] },
+  { title: "Part Five: Empathy and Belonging", video: "vid2-5.html", startPage: "subreflection2-5.html", reflections: [10,11] },
+  { title: "Part Six: C.A.T.C.H. and Timing", video: "vid2-6.html", startPage: "subreflection2-6.html", reflections: [12] },
+  { title: "Part Seven: S.M.A.R.T. Goals & Life Skills", video: "vid2-7.html", startPage: "subreflection2-7.html", reflections: [13,14,15] },
 ];
 
 function updateProgressBar() {
   let completed = 0;
   for (let i = 1; i <= totalReflections; i++) {
-    const v
+    const v = localStorage.getItem("reflection2-" + i);
+    if (v && v.trim()) completed++;
+  }
+  document.getElementById("progressBar").innerHTML =
+    `<strong>${completed} of ${totalReflections} reflections completed</strong>`;
+}
+
+function showSummary() {
+  updateProgressBar();
+  let html = "";
+
+  sections.forEach(section => {
+    let sectionHasIncomplete = false;
+
+    html += `<div class="section">`;
+    html += `
+      <div class="section-header">
+        <h2>${section.title}</h2>
+        <button onclick="location.href='${section.video}'">Revisit Video</button>
+      </div>
+    `;
+
+    section.reflections.forEach(i => {
+      const stored = localStorage.getItem("reflection2-" + i);
+      const isComplete = stored && stored.trim();
+
+      if (!isComplete) sectionHasIncomplete = true;
+
+      html += `<div class="reflection-item">`;
+      html += `<h3>${isComplete ? "✔︎ " + completedTitles[i-1] : "○ " + pendingTitles[i-1]}</h3>`;
+      html += isComplete
+        ? `<p>${stored}</p>`
+        : `<p class="not-complete">Reflection not yet completed</p>`;
+      html += `</div>`;
+    });
+
+    if (sectionHasIncomplete) {
+      html += `
+        <div class="section-footer">
+          <button onclick="location.href='${section.startPage}'">
+            Complete Reflections Now
+          </button>
+        </div>
+      `;
+    }
+
+    html += `</div>`;
+  });
+
+  document.getElementById("summaryDisplay").innerHTML = html;
+}
+
+window.onload = showSummary;
+</script>
+
+</body>
+</html>
