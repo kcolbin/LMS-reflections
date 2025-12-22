@@ -71,22 +71,26 @@
 
   <script>
     // === CONFIG ===
-    const totalReflections = 12;
+    const totalReflections = 15;
 
-    const titles = [
-      "The qualities that make me uniquely myself:",
-      "Some strengths that exist in my community and how I might build on them:",
-      "What I know about the challenges my players might be dealing with and how can I learn more:",
-      "Some strategies I can use to make a connection with my players:",
-      "My plan for creating a team code with my players:",
-      "What I can do to create consistency:",
-      "My techniques for checking myself:",
-      "What might be driving my 7-year-old player to run around, shout, laugh... and NOT pay attention:",
-      "How I can use C.A.T.C.H. and empathy to respond effectively to my 7-year-old player not paying attention:",
-      "2 strategies I can use to uphold the team code:",
-      "How I can help my players make a positive transition into the end of a season:",
-      "How I can give closure at the end of the season:"
-    ];
+// MANUALLY ENTER TITLES HERE (index 0 = reflection1)
+const titles = [
+  "What being a coach-mentor means to me:",
+  "A time someone showed they believed in me:",
+  "How it felt:",
+  "What I can do to show belief in my players:",
+  "How my coaches coached me:",
+  "How I've evolved since I started coaching:",
+  "My thoughts on Mulch's evolution:",
+  "An example of a mistake I needed to own:",
+  "Why it's hard to own mistakes:",
+  "A time I didn't feel I belonged:",
+  "A time I did feel I belonged:",
+  "Strategies for addressing sideways behavior from Adrian and JT:",
+  "Lessons from sport I've applied in other areas of my life:",
+  "How I can help players set goals for themselves:",
+  "How I can help players connect what they learn with me to their lives outside soccer:",
+];
 
 
     // === PROGRESS BAR ===
@@ -144,7 +148,7 @@
         if (stored && stored.trim().length > 0) {
           html += `<div style="color: green; font-size: 16px;">Completed</div>`;
         } else {
-          html += `<button onclick="window.location='reflection${i}.html'">Go to Reflection</button>`;
+          html += `<button onclick="window.location='subreflection${i}.html'">Go to Reflection</button>`;
         }
 
         html += `</li>`;
