@@ -73,7 +73,7 @@
   <!-- THIRD INPUT -->
   <textarea id="response3"></textarea>
 
- <button onclick="saveAndReturn()">Save and Return to Summary</button>
+ <button onclick="saveReflection()">Save Reflection</button>
 
   <script>
     /***************************************
@@ -107,18 +107,11 @@
       localStorage.setItem(REFLECTION_KEY_2, text2);
       localStorage.setItem(REFLECTION_KEY_3, text3);
 
+     document.getElementById("saved").innerText = "Saved!";
+      setTimeout(() => {
+        document.getElementById("saved").innerText = "";
+      }, 1500);
     }
-
-    
-  /***************************************
-   * SAVE + RETURN
-   ***************************************/
-  function saveAndReturn() {
-    saveReflection();
-    document.getElementById("saved").innerText = "Saved!";
-  setTimeout(() => {
-    window.location.href = RETURN_URL;
-  }, 300);  }
   </script>
 
 </body>
