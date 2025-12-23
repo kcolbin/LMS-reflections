@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Time to reflect</title>
+
+  <style>
+    @font-face {
+      font-family: "PolySans";
+      src: url("PolySans-Neutral.woff2") format("woff2"),
+           url("PolySans-Neutral.woff") format("woff");
+      font-weight: normal;
+    }
+
+    body {
+      font-family: "PolySans", sans-serif;
+      padding: 30px;
+      max-width: 700px;
+      margin: auto;
+      font-size: 18px;
+      line-height: 1.6;
+      background-color: #F3EBDD;
+    }
+
+    textarea {
+      width: 100%;
+      height: 140px;
+      font-family: "PolySans", sans-serif;
+      font-size: 16px;
+      padding: 12px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-family: "PolySans", sans-serif;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background-color: #1F3F59;
+      color: white;
+    }
+
+    .saved-note {
+      margin-top: 10px;
+      color: #008000;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h3>What lessons from sport have you been able to transfer to other areas of your life?</h3>
+  
+  <!-- FIRST INPUT -->
+  <textarea id="response1"></textarea>
+
+  <!-- SECOND QUESTION -->
+  <h3>How can you help your players set goals for themselves?</h3>
+
+  <!-- SECOND INPUT -->
+  <textarea id="response2"></textarea>
+
+  <!-- THIRD QUESTION -->
+  <h3>How can you help your players connect what they learn with you to their lives outside soccer?</h3>
+
+  <!-- THIRD INPUT -->
+  <textarea id="response3"></textarea>
+
+  <button onclick="saveAndReturn()">Save and Return to Summary</button>
+  <div id="saved" class="saved-note"></div>
+
+  <script>
+    /***************************************
+     * CONFIG
+     ***************************************/
+     const RETURN_URL = "statuslist-2.html";
+
+    const REFLECTION_KEY_1 = "reflection2-13";
+    const REFLECTION_KEY_2 = "reflection2-14";
+    const REFLECTION_KEY_3 = "reflection2-15";
+
+    /***************************************
+     * LOAD EXISTING RESPONSES
+     ***************************************/
+    const saved1 = localStorage.getItem(REFLECTION_KEY_1);
+    if (saved1) document.getElementById("response1").value = saved1;
+
+    const saved2 = localStorage.getItem(REFLECTION_KEY_2);
+    if (saved2) document.getElementById("response2").value = saved2;
+
+    const saved3 = localStorage.getItem(REFLECTION_KEY_3);
+    if (saved3) document.getElementById("response3").value = saved3;
+
+    /***************************************
+     * SAVE REFLECTIONS
+     ***************************************/
+    function saveReflection() {
+      const text1 = document.getElementById("response1").value.trim();
+      const text2 = document.getElementById("response2").value.trim();
+      const text3 = document.getElementById("response3").value.trim();
+
+      localStorage.setItem(REFLECTION_KEY_1, text1);
+      localStorage.setItem(REFLECTION_KEY_2, text2);
+      localStorage.setItem(REFLECTION_KEY_3, text3);
+    }
+
+    /***************************************
+     * SAVE + RETURN
+     ***************************************/
+    function saveAndReturn() {
+      saveReflection();
+      document.getElementById("saved").innerText = "Saved!";
+      setTimeout(() => {
+        window.location.href = RETURN_URL;
+      }, 400);
+    }
+  </script>
+
+</body>
+</html>
