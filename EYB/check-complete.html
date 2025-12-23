@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Module Completion</title>
+
+  <style>
+    @font-face {
+      font-family: "PolySans";
+      src: url("PolySans-Neutral.woff2") format("woff2"),
+           url("PolySans-Neutral.woff") format("woff");
+      font-weight: normal;
+    }
+
+    body {
+      font-family: "PolySans", sans-serif;
+      padding: 40px 30px;
+      max-width: 700px;
+      margin: auto;
+      font-size: 20px;
+      line-height: 1.6;
+      background-color: #F3EBDD;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 22px;
+      margin-bottom: 30px;
+    }
+
+    button {
+      padding: 14px 24px;
+      background-color: #1F3F59;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 18px;
+      font-family: "PolySans", sans-serif;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="completionMessage"></div>
+
+  <script>
+    const TOTAL_REFLECTIONS = 15;
+    const STATUS_PAGE = "statuslist-2.html";
+
+    let completed = 0;
+
+    for (let i = 1; i <= TOTAL_REFLECTIONS; i++) {
+      const value = localStorage.getItem("reflection2-" + i);
+      if (value && value.trim().length > 0) {
+        completed++;
+      }
+    }
+
+    const container = document.getElementById("completionMessage");
+
+    if (completed === TOTAL_REFLECTIONS) {
+      container.innerHTML = `
+        <h1>Congratulations! 🎉</h1>
+        <p>You’ve completed the module!</p>
+      `;
+    } else {
+      container.innerHTML = `
+        <p><strong>You have completed ${completed} of ${TOTAL_REFLECTIONS} reflections.</strong></p>
+        <button onclick="window.location.href='${STATUS_PAGE}'">
+          Complete Reflections Now
+        </button>
+      `;
+    }
+  </script>
+
+</body>
+</html>
