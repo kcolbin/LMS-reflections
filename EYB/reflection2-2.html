@@ -73,12 +73,12 @@
   <!-- THIRD INPUT -->
   <textarea id="response3"></textarea>
 
-  <button onclick="saveReflection()">Save and Return to Summary</button>
+  <button onclick="saveAndReturn()">Save and Return to Summary</button>
   <div id="saved" class="saved-note"></div>
 
   <script>
     /***************************************
-     * CONFIG — TWO STORAGE KEYS FOR THIS PAGE
+     * CONFIG — THREE STORAGE KEYS FOR THIS PAGE
      ***************************************/
     const REFLECTION_KEY_1 = "reflection2-2";
     const REFLECTION_KEY_2 = "reflection2-3";
@@ -108,9 +108,17 @@
       localStorage.setItem(REFLECTION_KEY_2, text2);
       localStorage.setItem(REFLECTION_KEY_3, text3);
 
-      document.getElementById("saved").innerText = "Saved!";
-      setTimeout(() => {
-        document.getElementById("saved").innerText = "";
+    }
+
+  /***************************************
+   * SAVE + RETURN
+   ***************************************/
+  function saveAndReturn() {
+    saveReflection();
+    document.getElementById("saved").innerText = "Saved!";
+  setTimeout(() => {
+    window.location.href = RETURN_URL;
+  }, 300);  }
       }, 1500);
     }
   </script>
