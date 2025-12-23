@@ -5,7 +5,6 @@
   <title>Time to reflect</title>
 
   <style>
-    /* Load PolySans — replace URLs with your file locations */
     @font-face {
       font-family: "PolySans";
       src: url("PolySans-Neutral.woff2") format("woff2"),
@@ -32,10 +31,11 @@
       box-sizing: border-box;
       border: 1px solid #ccc;
       border-radius: 6px;
+      margin-bottom: 20px;
     }
 
     button {
-      margin-top: 20px;
+      margin-top: 10px;
       padding: 12px 20px;
       font-size: 16px;
       font-family: "PolySans", sans-serif;
@@ -56,29 +56,24 @@
 
 <body>
 
-   <h3>Can you remember a time when someone showed they believed in you? Who was it? What did they do?</h3>
-  
-  <!-- FIRST INPUT -->
+  <h3>Can you remember a time when someone showed they believed in you? Who was it? What did they do?</h3>
   <textarea id="response1"></textarea>
 
-  <!-- SECOND QUESTION -->
   <h3>How did it feel?</h3>
-
-  <!-- SECOND INPUT -->
   <textarea id="response2"></textarea>
 
-  <!-- THIRD QUESTION -->
   <h3>What can you do to show belief in your players?</h3>
-
-  <!-- THIRD INPUT -->
   <textarea id="response3"></textarea>
 
   <button onclick="saveAndReturn()">Save and Return to Summary</button>
+  <div id="saved" class="saved-note"></div>
 
   <script>
     /***************************************
-     * CONFIG — TWO STORAGE KEYS FOR THIS PAGE
+     * CONFIG
      ***************************************/
+    const RETURN_URL = "statuslist-2.html";
+
     const REFLECTION_KEY_1 = "reflection2-2";
     const REFLECTION_KEY_2 = "reflection2-3";
     const REFLECTION_KEY_3 = "reflection2-4";
@@ -96,7 +91,7 @@
     if (saved3) document.getElementById("response3").value = saved3;
 
     /***************************************
-     * SAVE FUNCTION
+     * SAVE REFLECTIONS
      ***************************************/
     function saveReflection() {
       const text1 = document.getElementById("response1").value.trim();
@@ -106,20 +101,19 @@
       localStorage.setItem(REFLECTION_KEY_1, text1);
       localStorage.setItem(REFLECTION_KEY_2, text2);
       localStorage.setItem(REFLECTION_KEY_3, text3);
+    }
 
-  }
-
-  /***************************************
-   * SAVE + RETURN
-   ***************************************/
-  function saveAndReturn() {
-    saveReflection();
-    document.getElementById("saved").innerText = "Saved!";
-  setTimeout(() => {
-    window.location.href = RETURN_URL;
-  }, 300);  }
-</script>
-
+    /***************************************
+     * SAVE + RETURN
+     ***************************************/
+    function saveAndReturn() {
+      saveReflection();
+      document.getElementById("saved").innerText = "Saved!";
+      setTimeout(() => {
+        window.location.href = RETURN_URL;
+      }, 400);
+    }
+  </script>
 
 </body>
 </html>
