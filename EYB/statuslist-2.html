@@ -93,6 +93,23 @@
 <div id="progressBar"></div>
 <div id="summaryDisplay"></div>
 
+  <button onclick="downloadPDF()" 
+        style="margin: 20px 0; padding: 12px 18px; font-size: 16px;">
+  Download your reflections as PDF
+</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  
+  <script src="PolySans-normal.js"></script>
+  <script src="PolySans-bold.js"></script>
+  <script>
+  if (window.jspdf && window.jspdf.jsPDF) {
+    window.jspdf.jsPDF.API.events.forEach(([event, handler]) => {
+      if (event === 'addFonts') handler.call(window.jspdf.jsPDF.API);
+    });
+  }
+  </script>
+
 <script>
 const totalReflections = 15;
 
@@ -200,6 +217,107 @@ function showSummary() {
   document.getElementById("summaryDisplay").innerHTML = html;
 }
 
+  async function downloadPDF() {
+  const { jsPDF } = window.jspdf;
+
+  // --- CONFIG ---
+  const logoURL = "https://images.squarespace-cdn.com/content/5b1dd63f620b85685e2e9978/15782fbc-a9dc-4f5b-94f2-a6f9cf73c65a/Foundation-YC-lockup-sm.png"; 
+  const pageWidth = 612;   // Letter size width in pt (8.5in * 72)
+  const pageHeight = 792;  // Letter size height in pt (11in * 72)
+  const leftMargin = 60;
+  const rightMargin = 60;
+  const usableWidth = pageWidth - leftMargin - rightMargin;
+  const lineHeight = 18;
+
+  // Load logo as data URL
+  let logoData = null;
+  try {
+    logoData = await new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = "Anonymous";
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        canvas.getContext("2d").drawImage(img, 0, 0);
+        resolve(canvas.toDataURL("image/png"));
+      };
+      img.onerror = reject;
+      img.src = logoURL;
+    });
+  } catch(e) {
+    console.warn("Logo could not be loaded, continuing without it.");
+  }
+
+  // Create Letter size PDF
+  const doc = new jsPDF({
+    unit: "pt",
+    format: "letter"
+  });
+
+  let y = 40; // start height
+
+  // Add logo if loaded
+  if (logoData) {
+  const targetWidth = 180;
+const scale = targetWidth / 354;
+
+const renderWidth = 180;
+const renderHeight = 105 * scale;
+
+doc.addImage(logoData, "PNG", leftMargin, y, renderWidth, renderHeight);
+y += renderHeight + 50;   // move down after logo
+}
+ 
+  // Add main header
+  doc.setFont("PolySans", "bold");
+  doc.setFontSize(22);
+
+  // Wrap header text
+  const header = "Your Reflections Summary";
+  const headerLines = doc.splitTextToSize(header, usableWidth);
+  headerLines.forEach(line => {
+    if (y > pageHeight - 50) { doc.addPage(); y = 40; }
+    doc.text(line, leftMargin, y);
+    y += lineHeight;
+  });
+  y += 20;
+
+  // --- Loop through reflections ---
+  for (let i = 1; i <= totalReflections; i++) {
+    const key = "reflection2-" + i;
+    const stored = localStorage.getItem(key);
+    if (!stored) continue;
+
+    const title = titles[i - 1] || `Reflection ${i}`;
+
+    // Add title in bold
+    doc.setFont("PolySans", "bold");
+    doc.setFontSize(16);
+    const titleLines = doc.splitTextToSize(title, usableWidth);
+    titleLines.forEach(line => {
+      if (y > pageHeight - 50) { doc.addPage(); y = 40; }
+      doc.text(line, leftMargin, y);
+      y += lineHeight;
+    });
+    y += 8; // small spacing before body
+
+    // Add body text
+    doc.setFont("PolySans", "normal");
+    doc.setFontSize(12);
+    const wrapped = doc.splitTextToSize(stored, usableWidth);
+    wrapped.forEach(line => {
+      if (y > pageHeight - 50) { doc.addPage(); y = 40; }
+      doc.text(line, leftMargin, y);
+      y += lineHeight;
+    });
+
+    y += 20; // spacing between reflections
+  }
+
+  doc.save("Reflections.pdf");
+}
+  
 window.onload = showSummary;
 </script>
 
