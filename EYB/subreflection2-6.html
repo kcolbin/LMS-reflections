@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Time to reflect</title>
+
+  <style>
+    /* Load PolySans — replace URLs with your file locations */
+    @font-face {
+      font-family: "PolySans";
+      src: url("PolySans-Neutral.woff2") format("woff2"),
+           url("PolySans-Neutral.woff") format("woff");
+      font-weight: normal;
+    }
+
+    body {
+      font-family: "PolySans", sans-serif;
+      padding: 30px;
+      max-width: 700px;
+      margin: auto;
+      font-size: 18px;
+      line-height: 1.6;
+      background-color: #F3EBDD;
+    }
+
+    textarea {
+      width: 100%;
+      height: 180px;
+      font-family: "PolySans", sans-serif;
+      font-size: 16px;
+      padding: 12px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-family: "PolySans", sans-serif;
+      cursor: pointer;
+      border: none;
+      border-radius: 6px;
+      background-color: #1F3F59;
+      color: white;
+    }
+
+    .saved-note {
+      margin-top: 10px;
+      color: #008000;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>What strategies for addressing sideways behaviour did you notice from Adrian and JT?</h2>
+  
+  <textarea id="response"></textarea>
+  <button onclick="saveAndReturn()">Save and Return to Summary</button>
+
+  <div id="saved" class="saved-note"></div>
+
+  <script>
+  /***************************************
+   * CONFIG — SET YOUR UNIQUE REFLECTION ID
+   ***************************************/
+  const REFLECTION_ID = "reflection2-12";
+  const RETURN_URL = "statuslist-2.html";
+
+  /***************************************
+   * LOAD SAVED RESPONSE (if any)
+   ***************************************/
+  const saved = localStorage.getItem(REFLECTION_ID);
+  if (saved) {
+    document.getElementById("response").value = saved;
+  }
+
+  /***************************************
+   * SAVE ONLY
+   ***************************************/
+  function saveReflection() {
+    const text = document.getElementById("response").value.trim();
+    localStorage.setItem(REFLECTION_ID, text);
+  }
+
+  /***************************************
+   * SAVE + RETURN
+   ***************************************/
+  function saveAndReturn() {
+    saveReflection();
+    document.getElementById("saved").innerText = "Saved!";
+  setTimeout(() => {
+    window.location.href = RETURN_URL;
+  }, 300);  }
+</script>
+
+
+</body>
+</html>
