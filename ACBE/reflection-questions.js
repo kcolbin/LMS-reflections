@@ -1,7 +1,7 @@
 <script>
   // Single source of truth for ALL questions
   const REFLECTION_QUESTIONS = [
-    "What does being a coach-mentor mean to you?",
+    "What are two examples of sideways behavior that you commonly experience in your coaching?",
     "Can you remember a time when someone showed they believed in you? Who was it / what did they do?",
     "How did it feel?",
     "What can you do to show belief in your players?",
