@@ -1,1 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Time to reflect</title>
+
+  <style>
+    @font-face {
+      font-family: "PolySans";
+      src: url("PolySans-Neutral.woff2") format("woff2"),
+           url("PolySans-Neutral.woff") format("woff");
+    }
+
+    body {
+      font-family: "PolySans", sans-serif;
+      padding: 30px;
+      max-width: 700px;
+      margin: auto;
+      font-size: 18px;
+      background-color: #F3EBDD;
+    }
+
+    textarea {
+      width: 100%;
+      height: 140px;
+      font-size: 16px;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      background: #1F3F59;
+      color: white;
+      cursor: pointer;
+    }
+
+    .saved-note {
+      margin-top: 10px;
+      color: green;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h2>Reflection</h2>
+
+<div id="questions"></div>
+
+<button onclick="saveReflection()">Save Reflection</button>
+<div id="saved" class="saved-note"></div>
+
+<!-- SHARED QUESTIONS -->
+<script src="reflection-questions.js"></script>
+
+<script>
+  /***************************************
+   * PAGE CONFIG — CHANGE ONLY THIS
+   ***************************************/
+  const QUESTION_INDEXES = [1, 2, 3]; 
+  // zero-based → questions 2, 3, 4
+
+  const STORAGE_PREFIX = "reflection2-";
+
+  /***************************************
+   * RENDER QUESTIONS
+   ***************************************/
+  const container = document.getElementById("questions");
+
+  QUESTION_INDEXES.forEach((qIndex, i) => {
+    const key = STORAGE_PREFIX + (qIndex + 1);
+    const saved = localStorage.getItem(key) || "";
+
+    container.innerHTML += `
+      <h3>${REFLECTION_QUESTIONS[qIndex]}</h3>
+      <textarea id="q-${qIndex}">${saved}</textarea>
+    `;
+  });
+
+  /***************************************
+   * SAVE
+   ***************************************/
+  function saveReflection() {
+    QUESTION_INDEXES.forEach(qIndex => {
+      const value = document.getElementById("q-" + qIndex).value.trim();
+      localStorage.setItem(STORAGE_PREFIX + (qIndex + 1), value);
+    });
+
+    const savedEl = document.getElementById("saved");
+    savedEl.innerText = "Saved!";
+    setTimeout(() => savedEl.innerText = "", 1500);
+  }
+</script>
+
+</body>
+</html>
 
