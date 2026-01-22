@@ -8,14 +8,94 @@
       title: "What, if any, strategies or tools do you currently have to approach sideways behavior?",
     },
     {
-      title: "How did it feel?"
-      // no subtext needed
+      title: "In the video you just watched, what did Amy, the coach, do to demonstrate empathy?"
     },
     {
-      title: "What can you do to show belief in your players?"
+      title: "In the video you just watched, where did you feel empathy for Amy? Where did you feel empathy for Allie?"
     },
     {
-      title: "How did your coaches coach you?",
-      subtext: "What did they do that was effective or ineffective for you?"
+      title: "In your own words, how would you define empathy?",
+      subtext: "Hint: If you're struggling to write a complete sentence, write down five words that are important to your understanding of empathy."
+    },
+    {
+      title: "Here is the definition of empathy you gave earlier. Based on what you've seen in the video, is there anything you'd add to or change about your definition? Update it below.",
+    },
+    {
+      title: "A player won't listen to instructions as you're trying to explain a new drill. What's one immediate-reaction guess as to why they aren't listening?",
+    },
+    {
+      title: "What's a good-faith reason why they weren't listening?",
+    },
+    {
+      title: "What's an example of a time you were really proud of your coaching behavior?",
+    },
+    {
+      title: "What's an example of a time you weren't as proud of your coaching behavior?",
+    },
+    {
+      title: "Recognizing that (a) everybody stumbles and (b) the players are always watching, what does good role modeling look like in response to the moment you're not as proud of?",
+    },
+    {
+      title: "Sofia talks about having had strict coaches who yelled for most of her career. What kind of coaches have you had? What did you learn from them about the "right" way to coach?",
+    },
+    {
+      title: "If you were a player, what impact would it have on you if your coach yelled at you when you made mistakes?",
+    },
+    {
+      title: "If you were a player, what kind of coaching would lead you to perform at your absolute best?",
+    },
+    {
+      title: "If you were in Coach H's shoes, what would you do next?",
+    },
+    {
+      title: "Take another look at your answer below. Can you see some of the concepts and tools we covered in this module in your answer? Anything you want to add?",
+    },
+    {
+      title: "What skills did you notice Coach H using when she responded to Sofia?",
+    },
+    {
+      title: "What did you like about this approach?",
+    },
+    {
+      title: "What, if anything, would you do differently to Coach H?",
+    },
+    {
+      title: "If you were in Mulch's shoes, what would you do next?",
+    },
+    {
+      title: "Take another look at your answer below. Can you see some of the concepts and tools we covered in this module in your answer? Anything you want to add?",
+    },
+    {
+      title: "What skills did you notice Mulch using when he responded to his team?",
+    },
+    {
+      title: "What did you like about this approach?",
+    },
+    {
+      title: "What, if anything, would you do differently to Mulch?",
+    },
+    {
+      title: "JT talks about coaches as 'facilitators of the players' environment,' and says he gets input from players as young as 5 about what they would like to do at practice. How can you give your own players ownership of their experience with you?",
+    },
+    {
+      title: "What did you notice about how Coach H held Sofia accountable for lying to her?",
+    },
+    {
+      title: "Coach H has clear standards of behavior, and at the same time only wants her players to be there if she wants to be there. How can you hold players accountable while giving them ownership over their experience?",
+    },
+    {
+      title: "What messages have you been taught about conflict? Is it good / bad / healthy / unhealthy? Something to be embraced? Something to be avoided?",
+    },
+    {
+      title: "Are there certain kinds of conflict you find more challenging than others? Which ones?",
+    },
+    {
+      title: "Understanding that conflict is inevitable, what, if anything, do you need to unlearn and re-learn to be able to effectively engage in healthy conflict?",
+    },
+    {
+      title: "Amy talks about not knowing what it's like to be deaf. What kinds of things might your players deal with that you haven't dealt with yourself? How can you show up with empathy in those situations?",
+    },
+    {
+      title: "How does empathy transform the experience for players?",
     },
   ];
