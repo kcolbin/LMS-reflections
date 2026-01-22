@@ -73,7 +73,7 @@
         `;
         container.appendChild(block);
         // load saved value
-        const saved = localStorage.getItem(`reflection2-${qIndex + 1}`);
+        const saved = localStorage.getItem(`reflection3-${qIndex + 1}`);
         if (saved) {
           document.getElementById(`response-${qIndex}`).value = saved;
         }
@@ -86,7 +86,7 @@
           .getElementById(`response-${qIndex}`)
           .value
           .trim();
-        localStorage.setItem(`reflection2-${qIndex + 1}`, value);
+        localStorage.setItem(`reflection3-${qIndex + 1}`, value);
       });
       const savedEl = document.getElementById("saved");
       savedEl.innerText = "Saved!";
