@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Time to reflect</title>
@@ -9,6 +9,7 @@
       font-family: "PolySans";
       src: url("PolySans-Neutral.woff2") format("woff2"),
            url("PolySans-Neutral.woff") format("woff");
+      font-weight: normal;
     }
 
     body {
@@ -17,32 +18,37 @@
       max-width: 700px;
       margin: auto;
       font-size: 18px;
+      line-height: 1.6;
       background-color: #F3EBDD;
     }
 
+    h2 { margin-bottom: 6px; }
+    p  { margin-top: 0; margin-bottom: 10px; font-size: 16px; }
+
     textarea {
       width: 100%;
-      height: 140px;
+      height: 180px;
+      font-family: "PolySans", sans-serif;
       font-size: 16px;
       padding: 12px;
-      border-radius: 6px;
       border: 1px solid #ccc;
-      margin-bottom: 20px;
+      border-radius: 6px;
+      margin-bottom: 24px;
     }
 
     button {
       padding: 12px 20px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: none;
       background: #1F3F59;
       color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
       cursor: pointer;
     }
 
     .saved-note {
-      margin-top: 10px;
-      color: green;
+      margin-top: 12px;
+      color: #008000;
       font-size: 14px;
     }
   </style>
@@ -50,55 +56,56 @@
 
 <body>
 
-<h2>Reflection</h2>
+  <div id="questions"></div>
 
-<div id="questions"></div>
+  <button onclick="saveReflection()">Save Reflection</button>
+  <div id="saved" class="saved-note"></div>
 
-<button onclick="saveReflection()">Save Reflection</button>
-<div id="saved" class="saved-note"></div>
+  <!-- MASTER QUESTION LIST -->
+  <script src="reflection-questions.js"></script>
 
-<!-- SHARED QUESTIONS -->
-<script src="reflection-questions.js"></script>
+  <script>
+    /***************************************
+     * WHICH QUESTIONS THIS PAGE USES
+     ***************************************/
+    const QUESTION_INDEXES = [0]; 
+    // zero-based → question 1
 
-<script>
-  /***************************************
-   * PAGE CONFIG — CHANGE ONLY THIS
-   ***************************************/
-  const QUESTION_INDEXES = [1, 2, 3]; 
-  // zero-based → questions 2, 3, 4
+    const container = document.getElementById("questions");
 
-  const STORAGE_PREFIX = "reflection2-";
-
-  /***************************************
-   * RENDER QUESTIONS
-   ***************************************/
-  const container = document.getElementById("questions");
-
-  QUESTION_INDEXES.forEach((qIndex, i) => {
-    const key = STORAGE_PREFIX + (qIndex + 1);
-    const saved = localStorage.getItem(key) || "";
-
-    container.innerHTML += `
-      <h3>${REFLECTION_QUESTIONS[qIndex]}</h3>
-      <textarea id="q-${qIndex}">${saved}</textarea>
-    `;
-  });
-
-  /***************************************
-   * SAVE
-   ***************************************/
-  function saveReflection() {
     QUESTION_INDEXES.forEach(qIndex => {
-      const value = document.getElementById("q-" + qIndex).value.trim();
-      localStorage.setItem(STORAGE_PREFIX + (qIndex + 1), value);
+      const q = window.REFLECTION_QUESTIONS[qIndex];
+
+      const block = document.createElement("div");
+      block.innerHTML = `
+        <h2>${q.title}</h2>
+        ${q.subtext ? `<p>${q.subtext}</p>` : ""}
+        <textarea id="response-${qIndex}"></textarea>
+      `;
+      container.appendChild(block);
+
+      // load saved value
+      const saved = localStorage.getItem(`reflection2-${qIndex + 1}`);
+      if (saved) {
+        document.getElementById(`response-${qIndex}`).value = saved;
+      }
     });
 
-    const savedEl = document.getElementById("saved");
-    savedEl.innerText = "Saved!";
-    setTimeout(() => savedEl.innerText = "", 1500);
-  }
-</script>
+    function saveReflection() {
+      QUESTION_INDEXES.forEach(qIndex => {
+        const value = document
+          .getElementById(`response-${qIndex}`)
+          .value
+          .trim();
+
+        localStorage.setItem(`reflection2-${qIndex + 1}`, value);
+      });
+
+      const savedEl = document.getElementById("saved");
+      savedEl.innerText = "Saved!";
+      setTimeout(() => savedEl.innerText = "", 1500);
+    }
+  </script>
 
 </body>
 </html>
-
