@@ -1,4 +1,3 @@
-<script>
   // Single source of truth for ALL questions
   const REFLECTION_QUESTIONS = [
 {
@@ -20,4 +19,3 @@
       subtext: "What did they do that was effective or ineffective for you?"
     },
   ];
-</script>
