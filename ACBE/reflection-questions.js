@@ -36,7 +36,7 @@
       title: "Recognizing that (a) everybody stumbles and (b) the players are always watching, what does good role modeling look like in response to the moment you're not as proud of?",
     },
     {
-      title: "Sofia talks about having had strict coaches who yelled for most of her career. What kind of coaches have you had? What did you learn from them about the "right" way to coach?",
+      title: "Sofia talks about having had strict coaches who yelled for most of her career. What kind of coaches have you had? What did you learn from them about the 'right' way to coach?",
     },
     {
       title: "If you were a player, what impact would it have on you if your coach yelled at you when you made mistakes?",
