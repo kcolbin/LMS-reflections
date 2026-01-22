@@ -66,6 +66,9 @@
   <script src="reflection-questions.js"></script>
 
   <script>
+
+    window.addEventListener("DOMContentLoaded", () => {
+      
     /***************************************
      * WHICH QUESTIONS THIS PAGE USES
      ***************************************/
@@ -93,6 +96,7 @@
         }
       });
     };
+  };
 
     function saveReflection() {
       QUESTION_INDEXES.forEach(qIndex => {
