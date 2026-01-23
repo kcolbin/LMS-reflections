@@ -5,7 +5,7 @@
       subtext: "For example, athletes arriving late..."
     },
     {
-      title: "What, if any, strategies or tools do you currently have to approach sideways behavior?",
+      title: "What, if any, strategies or tools do you currently have to address sideways behavior?",
     },
     {
       title: "In the video you just watched, what did Amy, the coach, do to demonstrate empathy?"
