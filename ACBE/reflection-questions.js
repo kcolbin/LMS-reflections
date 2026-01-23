@@ -21,7 +21,7 @@
       title: "Here is the definition of empathy you gave earlier. Based on what you've seen in the video, is there anything you'd add to or change about your definition? Update it below.",
     },
     {
-      title: "A player won't listen to instructions as you're trying to explain a new drill. What's one immediate-reaction guess as to why they aren't listening?",
+      title: "A player isn't listening to instructions as you're trying to explain a new drill. What's one immediate-reaction guess as to why they aren't listening?",
     },
     {
       title: "What's a good-faith reason why they weren't listening?",
