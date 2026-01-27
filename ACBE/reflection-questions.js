@@ -57,7 +57,7 @@
       title: "What did you like about this approach?",
     },
     {
-      title: "What, if anything, would you do differently to Coach H?",
+      title: "What, if anything, would you do differently than Coach H?",
     },
     {
       title: "If you were in Mulch's shoes, what would you do next?",
@@ -72,19 +72,23 @@
       title: "What did you like about this approach?",
     },
     {
-      title: "What, if anything, would you do differently to Mulch?",
+      title: "What, if anything, would you do differently than Mulch?",
     },
     {
-      title: "JT talks about coaches as 'facilitators of the players' environment,' and says he gets input from players as young as 5 about what they would like to do at practice. How can you give your own players ownership of their experience with you?",
+      title: "JT talks about coaches as 'facilitators of the players' environment,' and says he gets input from players as young as five about what they would like to do at practice. How can you share power with your players so they feel ownership of their experience?",
+    },
+    {
+      title: "How might players' behavior shift when they feel their voice matters?",
     },
     {
       title: "What did you notice about how Coach H held Sofia accountable for lying to her?",
     },
     {
-      title: "Coach H has clear standards of behavior, and at the same time only wants her players to be there if she wants to be there. How can you hold players accountable while giving them ownership over their experience?",
+      title: "Coach H has clear standards of behavior, and at the same time only wants her players to be there if they want to be there. How can you hold players accountable while giving them ownership over their experience?",
     },
     {
-      title: "What messages have you been taught about conflict? Is it good / bad / healthy / unhealthy? Something to be embraced? Something to be avoided?",
+      title: "What messages have you been taught about conflict?",
+      subtext: "Is it good / bad / healthy / unhealthy? Something to be embraced? Something to be avoided?",
     },
     {
       title: "Are there certain kinds of conflict you find more challenging than others? Which ones?",
