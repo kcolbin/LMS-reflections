@@ -24,7 +24,7 @@
       title: "A player isn't listening to instructions as you're trying to explain a new drill. What's one immediate-reaction guess as to why they aren't listening?",
     },
     {
-      title: "What's a good-faith reason why they weren't listening?",
+      title: "Assuming positive intent, what's another possible reason why they weren't listening?",
     },
     {
       title: "What's an example of a time you were really proud of your coaching behavior?",
@@ -48,7 +48,7 @@
       title: "If you were in Coach H's shoes, what would you do next?",
     },
     {
-      title: "Take another look at your answer below. Can you see some of the concepts and tools we covered in this module in your answer? Anything you want to add?",
+      title: "Take another look at your answer below. Can you see some of the concepts and tools we covered in this module, like role modeling or Two Good Options, in your answer? Anything you want to add?",
     },
     {
       title: "What skills did you notice Coach H using when she responded to Sofia?",
@@ -63,7 +63,7 @@
       title: "If you were in Mulch's shoes, what would you do next?",
     },
     {
-      title: "Take another look at your answer below. Can you see some of the concepts and tools we covered in this module in your answer? Anything you want to add?",
+      title: "Take another look at your answer below. Can you see some of the concepts and tools we covered in this module, like role modeling or Two Good Options, in your answer? Anything you want to add?",
     },
     {
       title: "What skills did you notice Mulch using when he responded to his team?",
