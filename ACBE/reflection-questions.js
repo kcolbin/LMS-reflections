@@ -1,11 +1,11 @@
   // Single source of truth for ALL questions
   const REFLECTION_QUESTIONS = [
 {
-      title: "What are two examples of sideways behavior that you commonly experience in your coaching?",
+      title: "What are two examples of challenging behavior that you commonly experience in your coaching?",
       subtext: "For example, athletes arriving late..."
     },
     {
-      title: "What, if any, strategies or tools do you currently have to address sideways behavior?",
+      title: "What, if any, strategies or tools do you currently have to address challenging behavior?",
     },
     {
       title: "In the video you just watched, what did Amy, the coach, do to demonstrate empathy?"
