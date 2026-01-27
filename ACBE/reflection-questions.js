@@ -2,7 +2,7 @@
   const REFLECTION_QUESTIONS = [
 {
       title: "What are two examples of challenging behavior that you commonly experience in your coaching?",
-      subtext: "For example, athletes arriving late..."
+      subtext: "For example, athletes not paying attention..."
     },
     {
       title: "What, if any, strategies or tools do you currently have to address challenging behavior?",
