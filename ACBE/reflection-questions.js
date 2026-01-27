@@ -39,7 +39,7 @@
       title: "Sofia talks about having had strict coaches who yelled for most of her career. What kind of coaches have you had? What did you learn from them about the 'right' way to coach?",
     },
     {
-      title: "If you were a player, what impact would it have on you if your coach yelled at you when you made mistakes?",
+      title: "If you were a player, what impact would it have on you if your coach angrily yelled at you when you made mistakes?",
     },
     {
       title: "If you were a player, what kind of coaching would lead you to perform at your absolute best?",
