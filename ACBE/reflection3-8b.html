@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Time to reflect</title>
+  <style>
+    @font-face {
+      font-family: "PolySans";
+      src: url("PolySans-Neutral.woff2") format("woff2"),
+           url("PolySans-Neutral.woff") format("woff");
+      font-weight: normal;
+    }
+    body {
+      font-family: "PolySans", sans-serif;
+      padding: 30px;
+      max-width: 700px;
+      margin: auto;
+      font-size: 18px;
+      line-height: 1.6;
+      background-color: #F3EBDD;
+    }
+    h2 { margin-bottom: 6px; }
+    p  { margin-top: 0; margin-bottom: 10px; font-size: 16px; }
+    textarea {
+      width: 100%;
+      height: 120px;
+      font-family: "PolySans", sans-serif;
+      font-size: 16px;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 24px;
+    }
+    button {
+      padding: 12px 20px;
+      background: #1F3F59;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .saved-note {
+      margin-top: 12px;
+      color: #008000;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="questions"></div>
+  <button onclick="saveReflection()">Save Reflection</button>
+  <div id="saved" class="saved-note"></div>
+  <!-- MASTER QUESTION LIST -->
+  <script src="reflection-questions.js"></script>
+
+<script>
+  /***************************************
+   * QUESTION → STORAGE MAPPING
+   ***************************************/
+  const QUESTIONS = [
+    {
+      questionIndex: 18, 
+      storageIndex: 17   
+    }
+  ];
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById("questions");
+
+    QUESTIONS.forEach(({ questionIndex, storageIndex }) => {
+      const q = REFLECTION_QUESTIONS[questionIndex];
+
+      const block = document.createElement("div");
+      block.innerHTML = `
+        <h2>${q.title}</h2>
+        ${q.subtext ? `<p>${q.subtext}</p>` : ""}
+        <textarea id="response-${storageIndex}"></textarea>
+      `;
+      container.appendChild(block);
+
+      // load saved value from the *mapped* storage key
+      const saved = localStorage.getItem(`reflection3-${storageIndex + 1}`);
+      if (saved) {
+        document.getElementById(`response-${storageIndex}`).value = saved;
+      }
+    });
+  });
+
+  function saveReflection() {
+    QUESTIONS.forEach(({ storageIndex }) => {
+      const value = document
+        .getElementById(`response-${storageIndex}`)
+        .value
+        .trim();
+
+      localStorage.setItem(`reflection3-${storageIndex + 1}`, value);
+    });
+
+    const savedEl = document.getElementById("saved");
+    savedEl.innerText = "Saved!";
+    setTimeout(() => savedEl.innerText = "", 1500);
+  }
+</script>
+
+</body>
+</html>
