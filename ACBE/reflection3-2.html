@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Time to reflect</title>
+  <style>
+    @font-face {
+      font-family: "PolySans";
+      src: url("PolySans-Neutral.woff2") format("woff2"),
+           url("PolySans-Neutral.woff") format("woff");
+      font-weight: normal;
+    }
+    body {
+      font-family: "PolySans", sans-serif;
+      padding: 30px;
+      max-width: 700px;
+      margin: auto;
+      font-size: 18px;
+      line-height: 1.6;
+      background-color: #F3EBDD;
+    }
+    h2 { margin-bottom: 6px; }
+    p  { margin-top: 0; margin-bottom: 10px; font-size: 16px; }
+    textarea {
+      width: 100%;
+      height: 120px;
+      font-family: "PolySans", sans-serif;
+      font-size: 16px;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 24px;
+    }
+    button {
+      padding: 12px 20px;
+      background: #1F3F59;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .saved-note {
+      margin-top: 12px;
+      color: #008000;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div id="questions"></div>
+  <button onclick="saveReflection()">Save Reflection</button>
+  <div id="saved" class="saved-note"></div>
+  <!-- MASTER QUESTION LIST -->
+  <script src="reflection-questions.js"></script>
+  <script>
+    /***************************************
+     * WHICH QUESTIONS THIS PAGE USES
+     ***************************************/
+    const QUESTION_INDEXES = [2, 3]; 
+    // zero-based → picks questions 1 and 2 from REFLECTION_QUESTIONS
+    
+    window.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("questions");
+      QUESTION_INDEXES.forEach(qIndex => {
+        const q = REFLECTION_QUESTIONS[qIndex];
+        const block = document.createElement("div");
+        block.innerHTML = `
+          <h2>${q.title}</h2>
+          ${q.subtext ? `<p>${q.subtext}</p>` : ""}
+          <textarea id="response-${qIndex}"></textarea>
+        `;
+        container.appendChild(block);
+        // load saved value
+        const saved = localStorage.getItem(`reflection3-${qIndex + 1}`);
+        if (saved) {
+          document.getElementById(`response-${qIndex}`).value = saved;
+        }
+      });
+    });
+    
+    function saveReflection() {
+      QUESTION_INDEXES.forEach(qIndex => {
+        const value = document
+          .getElementById(`response-${qIndex}`)
+          .value
+          .trim();
+        localStorage.setItem(`reflection3-${qIndex + 1}`, value);
+      });
+      const savedEl = document.getElementById("saved");
+      savedEl.innerText = "Saved!";
+      setTimeout(() => savedEl.innerText = "", 1500);
+    }
+  </script>
+</body>
+</html>
