@@ -56,9 +56,47 @@
 
 <body>
 
-  <h2>Did you have a Coach-Mentor? Who were they? What does being a coach-mentor mean to you?</h2>
-  <p>For example: supporting young people…
-  </p>
+  <!-- MASTER QUESTION LIST -->
+  <script src="reflection-questions.js"></script>
+  <script>
+    /***************************************
+     * WHICH QUESTIONS THIS PAGE USES
+     ***************************************/
+    const QUESTION_INDEXES = [0, 1]; 
+    // zero-based → picks questions 1 and 2 from REFLECTION_QUESTIONS
+    
+    window.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("questions");
+      QUESTION_INDEXES.forEach(qIndex => {
+        const q = REFLECTION_QUESTIONS[qIndex];
+        const block = document.createElement("div");
+        block.innerHTML = `
+          <h2>${q.title}</h2>
+          ${q.subtext ? `<p>${q.subtext}</p>` : ""}
+          <textarea id="response-${qIndex}"></textarea>
+        `;
+        container.appendChild(block);
+        // load saved value
+        const saved = localStorage.getItem(`reflection3-${qIndex + 1}`);
+        if (saved) {
+          document.getElementById(`response-${qIndex}`).value = saved;
+        }
+      });
+    });
+    
+    function saveReflection() {
+      QUESTION_INDEXES.forEach(qIndex => {
+        const value = document
+          .getElementById(`response-${qIndex}`)
+          .value
+          .trim();
+        localStorage.setItem(`reflection3-${qIndex + 1}`, value);
+      });
+      const savedEl = document.getElementById("saved");
+      savedEl.innerText = "Saved!";
+      setTimeout(() => savedEl.innerText = "", 1500);
+    }
+  </script>
 
   <textarea id="response"></textarea>
   <button onclick="saveAndReturn()">Save and Return to Summary</button>
