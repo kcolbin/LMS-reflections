@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Summary of your reflections</title>
+  <style>
+    @font-face {
+      font-family: "PolySans";
+      src: url("PolySans-Neutral.woff2") format("woff2"),
+           url("PolySans-Neutral.woff") format("woff");
+    }
+
+    body {
+      font-family: "PolySans", sans-serif;
+      padding: 30px;
+      max-width: 800px;
+      margin: auto;
+      font-size: 18px;
+      line-height: 1.6;
+      background-color: #F3EBDD;
+    }
+
+    button {
+      padding: 10px 16px;
+      background: #1F3F59;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 12px;
+    }
+
+    #progressBar {
+      margin-bottom: 25px;
+      font-size: 18px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .reflection-item {
+      padding: 12px 0;
+      border-top: 1px solid #ddd;
+    }
+
+    .reflection-item:first-child {
+      border-top: none;
+    }
+
+    .reflection-item h3 {
+      margin: 0 0 6px 0;
+      font-size: 18px;
+    }
+
+    .reflection-item p {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+
+    .not-complete {
+      font-style: italic;
+      color: #666;
+    }
+
+    .section-footer {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 2px solid #eee;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Your Coach-Mentor Training Reflections</h1>
+
+<div id="progressBar"></div>
+  
+  <button onclick="downloadPDF()" 
+        style="margin: 20px 0; padding: 12px 18px; font-size: 16px;">
+  Download your reflections as a PDF
+</button>
+  
+<div id="summaryDisplay"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  
+  <script src="PolySans-normal.js"></script>
+  <script src="PolySans-bold.js"></script>
+  <script>
+  if (window.jspdf && window.jspdf.jsPDF) {
+    window.jspdf.jsPDF.API.events.forEach(([event, handler]) => {
+      if (event === 'addFonts') handler.call(window.jspdf.jsPDF.API);
+    });
+  }
+  </script>
+
+<script>
+const totalReflections = 30;
+
+/* Titles shown WHEN COMPLETED */
+const completedTitles = [
+  "Two examples of challenging behavior:",
+"Strategies I use to address challenging behavior:",
+"How Amy demonstrated empathy as a coach:",
+"Where I felt empathy for Amy and for Allie:",
+"My definition of empathy:",
+"My first assumption when a player isn’t listening to instructions:",
+"A 'positive-intent' reason the player wasn’t listening:",
+"A time I was proud of my coaching behavior:",
+"A time I wasn’t as proud of my coaching behavior:",
+"How I can model accountability when I’m not proud of my behavior:",
+"What my coaches taught me about the ‘right’ way to coach:",
+"The impact on me as a player if my coach angrily yelled when I made mistakes:",
+"The kind of coaching that would help me perform at my absolute best:",
+"The messages I’ve been taught about conflict:",
+"The kinds of conflict I find most challenging:",
+"What I need to unlearn and re-learn to engage in healthy conflict:",
+"What I would do next if I were in Coach H’s shoes:",
+"The skills I noticed Coach H using when responding to Sofia:",
+"What I liked about Coach H’s approach:",
+"What I would do differently than Coach H:",
+"What I would do next if I were in Mulch’s shoes:",
+"The skills I noticed Mulch using when responding to his team:",
+"What I liked about Mulch’s approach:",
+"What I would do differently than Mulch:",
+"How I can share power with players:",
+"How players’ behavior might shift when they feel their voice matters:",
+"What I noticed about how Coach H held Sofia accountable for lying:",
+"How I can hold players accountable while giving them ownership of their experience:",
+"Things my players may deal with that I haven’t experienced and how I can show empathy:",
+"How empathy transforms the experience for players:",
+];
+
+/* Titles shown WHEN NOT COMPLETED */
+const pendingTitles = [
+  "What are two examples of challenging behavior that you commonly experience in your coaching?",
+"What, if any, strategies or tools do you currently have to address challenging behavior?",
+"In the video you just watched, what did Amy, the coach, do to demonstrate empathy?",
+"In the video you just watched, where did you feel empathy for Amy? Where did you feel empathy for Allie?",
+"In your own words, how would you define empathy?",
+"A player isn’t listening to instructions as you're trying to explain a new drill. What's your first assumption about why they aren't listening?",
+"Assuming positive intent, what's another possible reason why they weren't listening?",
+"What's an example of a time you were really proud of your coaching behavior?",
+"What's an example of a time you weren't as proud of your coaching behavior?",
+"Recognizing that (a) everybody stumbles and (b) the players are always watching, how can you model accountability for the moments you're not as proud of?",
+"Sofia talks about having had strict coaches who yelled for most of her career. What kind of coaches have you had? What did you learn from them about the ‘right’ way to coach?",
+"If you were a player, what impact would it have on you if your coach angrily yelled at you when you made mistakes?",
+"If you were a player, what kind of coaching would lead you to perform at your absolute best?",
+"What messages have you been taught about conflict? Is it good / bad / healthy / unhealthy? Something to be embraced? Something to be avoided?",
+"Are there certain kinds of conflict you find more challenging than others? Which ones?",
+"Understanding that conflict is inevitable, what, if anything, do you need to unlearn and re-learn to be able to effectively engage in healthy conflict?",
+"If you were in Coach H's shoes, what would you do next?",
+"What skills did you notice Coach H using when she responded to Sofia?",
+"What did you like about this approach?",
+"What, if anything, would you do differently than Coach H?",
+"If you were in Mulch's shoes, what would you do next?",
+"What skills did you notice Mulch using when he responded to his team?",
+"What did you like about this approach?",
+"What, if anything, would you do differently than Mulch?",
+"JT talks about coaches as 'facilitators of the players' environment,' and says he gets input from players as young as five about what they would like to do at practice. How can you share power with your players so they feel ownership of their experience?",
+"How might players shift their behavior when they feel their voice matters?",
+"What did you notice about how Coach H held Sofia accountable for lying to her?",
+"Coach H has clear standards of behavior, and at the same time only wants her players to be there if they want to be there. How can you hold players accountable while giving them ownership over their experience?",
+"Amy talks about not knowing what it's like to be deaf. What kinds of things might your players deal with that you haven't dealt with yourself? How can you show up with empathy in those situations?",
+"How does empathy transform the experience for players?",
+  ];
+
+/* Sections now include section-level reflection page */
+const sections = [
+  { title: "Part One: Challenging Behavior", video: "vid3-1.html", startPage: "subreflection3-1.html", reflections: [1,2] },
+  { title: "Part Two: Investing in Players", video: "vid2-2.html", startPage: "subreflection2-2.html", reflections: [2,3,4] },
+  { title: "Part Three: Evolving as a Coach", video: "vid2-3.html", startPage: "subreflection2-3.html", reflections: [5,6,7] },
+  { title: "Part Four: Owning Mistakes", video: "vid2-4.html", startPage: "subreflection2-4.html", reflections: [8,9] },
+  { title: "Part Five: Empathy and Belonging", video: "vid2-5.html", startPage: "subreflection2-5.html", reflections: [10,11] },
+  { title: "Part Six: Applying C.A.T.C.H.", video: "vid2-6.html", startPage: "subreflection2-6.html", reflections: [12] },
+  { title: "Part Seven: S.M.A.R.T. Goals & Life Skills", video: "vid2-7.html", startPage: "subreflection2-7.html", reflections: [13,14,15] },
+];
+
+function updateProgressBar() {
+  let completed = 0;
+  for (let i = 1; i <= totalReflections; i++) {
+    const v = localStorage.getItem("reflection2-" + i);
+    if (v && v.trim()) completed++;
+  }
+  document.getElementById("progressBar").innerHTML =
+    `<strong>${completed} of ${totalReflections} reflections completed</strong>`;
+}
+
+function showSummary() {
+  updateProgressBar();
+  let html = "";
+
+  sections.forEach(section => {
+    let sectionHasIncomplete = false;
+
+    html += `<div class="section">`;
+    html += `
+      <div class="section-header">
+        <h2>${section.title}</h2>
+        <button onclick="location.href='${section.video}'">Revisit Video</button>
+      </div>
+    `;
+
+    section.reflections.forEach(i => {
+      const stored = localStorage.getItem("reflection2-" + i);
+      const isComplete = stored && stored.trim();
+
+      if (!isComplete) sectionHasIncomplete = true;
+
+      html += `<div class="reflection-item">`;
+      html += `<h3>${isComplete ? "✔︎ " + completedTitles[i-1] : "○ " + pendingTitles[i-1]}</h3>`;
+      html += isComplete
+        ? `<p>${stored}</p>`
+        : `<p class="not-complete">Reflection not yet completed</p>`;
+      html += `</div>`;
+    });
+
+    if (sectionHasIncomplete) {
+      html += `
+        <div class="section-footer">
+          <button onclick="location.href='${section.startPage}'">
+            Complete Reflections Now
+          </button>
+        </div>
+      `;
+    }
+
+    html += `</div>`;
+  });
+
+  document.getElementById("summaryDisplay").innerHTML = html;
+}
+
+  async function downloadPDF() {
+  const { jsPDF } = window.jspdf;
+
+  // --- CONFIG ---
+  const logoURL = "https://images.squarespace-cdn.com/content/5b1dd63f620b85685e2e9978/15782fbc-a9dc-4f5b-94f2-a6f9cf73c65a/Foundation-YC-lockup-sm.png"; 
+  const pageWidth = 612;   // Letter size width in pt (8.5in * 72)
+  const pageHeight = 792;  // Letter size height in pt (11in * 72)
+  const leftMargin = 60;
+  const rightMargin = 60;
+  const usableWidth = pageWidth - leftMargin - rightMargin;
+  const lineHeight = 18;
+
+  // Load logo as data URL
+  let logoData = null;
+  try {
+    logoData = await new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = "Anonymous";
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        canvas.getContext("2d").drawImage(img, 0, 0);
+        resolve(canvas.toDataURL("image/png"));
+      };
+      img.onerror = reject;
+      img.src = logoURL;
+    });
+  } catch(e) {
+    console.warn("Logo could not be loaded, continuing without it.");
+  }
+
+  // Create Letter size PDF
+  const doc = new jsPDF({
+    unit: "pt",
+    format: "letter"
+  });
+
+  let y = 40; // start height
+
+  // Add logo if loaded
+  if (logoData) {
+  const targetWidth = 180;
+const scale = targetWidth / 354;
+
+const renderWidth = 180;
+const renderHeight = 105 * scale;
+
+doc.addImage(logoData, "PNG", leftMargin, y, renderWidth, renderHeight);
+y += renderHeight + 50;   // move down after logo
+}
+ 
+  // Add main header
+  doc.setFont("PolySans", "bold");
+  doc.setFontSize(22);
+
+  // Wrap header text
+  const header = "Your Reflections Summary";
+  const headerLines = doc.splitTextToSize(header, usableWidth);
+  headerLines.forEach(line => {
+    if (y > pageHeight - 50) { doc.addPage(); y = 40; }
+    doc.text(line, leftMargin, y);
+    y += lineHeight;
+  });
+  y += 20;
+
+  // --- Loop through reflections ---
+  for (let i = 1; i <= totalReflections; i++) {
+    const key = "reflection2-" + i;
+    const stored = localStorage.getItem(key);
+    if (!stored) continue;
+
+    const title = titles[i - 1] || `Reflection ${i}`;
+
+    // Add title in bold
+    doc.setFont("PolySans", "bold");
+    doc.setFontSize(16);
+    const titleLines = doc.splitTextToSize(title, usableWidth);
+    titleLines.forEach(line => {
+      if (y > pageHeight - 50) { doc.addPage(); y = 40; }
+      doc.text(line, leftMargin, y);
+      y += lineHeight;
+    });
+    y += 8; // small spacing before body
+
+    // Add body text
+    doc.setFont("PolySans", "normal");
+    doc.setFontSize(12);
+    const wrapped = doc.splitTextToSize(stored, usableWidth);
+    wrapped.forEach(line => {
+      if (y > pageHeight - 50) { doc.addPage(); y = 40; }
+      doc.text(line, leftMargin, y);
+      y += lineHeight;
+    });
+
+    y += 20; // spacing between reflections
+  }
+
+  doc.save("Reflections.pdf");
+}
+  
+window.onload = showSummary;
+</script>
+
+</body>
+</html>
