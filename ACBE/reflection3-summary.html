@@ -185,7 +185,7 @@ const pendingTitles = [
 /* Sections now include section-level reflection page */
 const sections = [
   { title: "Part One: Challenging Behavior", video: "vid3-1.html", startPage: "subreflection3-1.html", reflections: [1,2] },
-  { title: "Part Two: Investing in Players", video: "vid2-2.html", startPage: "subreflection2-2.html", reflections: [2,3,4] },
+  { title: "Part Two: Everyone Stumbles", video: "vid3-2.html", startPage: "subreflection3-2.html", reflections: [2,3,4] },
   { title: "Part Three: Evolving as a Coach", video: "vid2-3.html", startPage: "subreflection2-3.html", reflections: [5,6,7] },
   { title: "Part Four: Owning Mistakes", video: "vid2-4.html", startPage: "subreflection2-4.html", reflections: [8,9] },
   { title: "Part Five: Empathy and Belonging", video: "vid2-5.html", startPage: "subreflection2-5.html", reflections: [10,11] },
@@ -196,7 +196,7 @@ const sections = [
 function updateProgressBar() {
   let completed = 0;
   for (let i = 1; i <= totalReflections; i++) {
-    const v = localStorage.getItem("reflection2-" + i);
+    const v = localStorage.getItem("reflection3-" + i);
     if (v && v.trim()) completed++;
   }
   document.getElementById("progressBar").innerHTML =
@@ -219,7 +219,7 @@ function showSummary() {
     `;
 
     section.reflections.forEach(i => {
-      const stored = localStorage.getItem("reflection2-" + i);
+      const stored = localStorage.getItem("reflection3-" + i);
       const isComplete = stored && stored.trim();
 
       if (!isComplete) sectionHasIncomplete = true;
@@ -316,7 +316,7 @@ y += renderHeight + 50;   // move down after logo
 
   // --- Loop through reflections ---
   for (let i = 1; i <= totalReflections; i++) {
-    const key = "reflection2-" + i;
+    const key = "reflection3-" + i;
     const stored = localStorage.getItem(key);
     if (!stored) continue;
 
