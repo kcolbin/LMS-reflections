@@ -5,7 +5,6 @@
   <title>Time to reflect</title>
 
   <style>
-    /* Load PolySans — replace URLs with your file locations */
     @font-face {
       font-family: "PolySans";
       src: url("PolySans-Neutral.woff2") format("woff2"),
@@ -23,6 +22,17 @@
       background-color: #F3EBDD;
     }
 
+    h2 {
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
     textarea {
       width: 100%;
       height: 180px;
@@ -32,10 +42,10 @@
       box-sizing: border-box;
       border: 1px solid #ccc;
       border-radius: 6px;
+      margin-bottom: 24px;
     }
 
     button {
-      margin-top: 20px;
       padding: 12px 20px;
       font-size: 16px;
       font-family: "PolySans", sans-serif;
@@ -47,7 +57,7 @@
     }
 
     .saved-note {
-      margin-top: 10px;
+      margin-top: 12px;
       color: #008000;
       font-size: 14px;
     }
@@ -56,87 +66,63 @@
 
 <body>
 
+  <!-- WHERE QUESTIONS RENDER -->
+  <div id="questions"></div>
+
+  <button onclick="saveAndReturn()">Save and Return to Summary</button>
+  <div id="saved" class="saved-note"></div>
+
   <!-- MASTER QUESTION LIST -->
   <script src="reflection-questions.js"></script>
+
   <script>
     /***************************************
      * WHICH QUESTIONS THIS PAGE USES
      ***************************************/
-    const QUESTION_INDEXES = [0, 1]; 
-    // zero-based → picks questions 1 and 2 from REFLECTION_QUESTIONS
-    
+    const QUESTION_INDEXES = [0, 1]; // questions 1 & 2
+    const STORAGE_PREFIX = "reflection3";
+    const RETURN_URL = "reflection3-summary.html";
+
     window.addEventListener("DOMContentLoaded", () => {
       const container = document.getElementById("questions");
+
       QUESTION_INDEXES.forEach(qIndex => {
         const q = REFLECTION_QUESTIONS[qIndex];
         const block = document.createElement("div");
+
         block.innerHTML = `
           <h2>${q.title}</h2>
           ${q.subtext ? `<p>${q.subtext}</p>` : ""}
           <textarea id="response-${qIndex}"></textarea>
         `;
+
         container.appendChild(block);
-        // load saved value
-        const saved = localStorage.getItem(`reflection3-${qIndex + 1}`);
+
+        // Load saved response
+        const saved = localStorage.getItem(`${STORAGE_PREFIX}-${qIndex}`);
         if (saved) {
           document.getElementById(`response-${qIndex}`).value = saved;
         }
       });
     });
-    
-    function saveReflection() {
+
+    function saveAndReturn() {
       QUESTION_INDEXES.forEach(qIndex => {
         const value = document
           .getElementById(`response-${qIndex}`)
           .value
           .trim();
-        localStorage.setItem(`reflection3-${qIndex + 1}`, value);
+        localStorage.setItem(`${STORAGE_PREFIX}-${qIndex}`, value);
       });
+
       const savedEl = document.getElementById("saved");
       savedEl.innerText = "Saved!";
-      setTimeout(() => savedEl.innerText = "", 1500);
+
+      setTimeout(() => {
+        window.location.href = RETURN_URL;
+      }, 300);
     }
   </script>
-
-  <textarea id="response"></textarea>
-  <button onclick="saveAndReturn()">Save and Return to Summary</button>
-
-  <div id="saved" class="saved-note"></div>
-
-  <script>
-  /***************************************
-   * CONFIG — SET YOUR UNIQUE REFLECTION ID
-   ***************************************/
-  const REFLECTION_ID = "reflection3-1";
-  const RETURN_URL = "reflection3-summary.html";
-
-  /***************************************
-   * LOAD SAVED RESPONSE (if any)
-   ***************************************/
-  const saved = localStorage.getItem(REFLECTION_ID);
-  if (saved) {
-    document.getElementById("response").value = saved;
-  }
-
-  /***************************************
-   * SAVE ONLY
-   ***************************************/
-  function saveReflection() {
-    const text = document.getElementById("response").value.trim();
-    localStorage.setItem(REFLECTION_ID, text);
-  }
-
-  /***************************************
-   * SAVE + RETURN
-   ***************************************/
-  function saveAndReturn() {
-    saveReflection();
-    document.getElementById("saved").innerText = "Saved!";
-  setTimeout(() => {
-    window.location.href = RETURN_URL;
-  }, 300);  }
-</script>
-
 
 </body>
 </html>
