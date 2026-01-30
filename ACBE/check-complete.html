@@ -54,45 +54,52 @@
 
   <div id="completionMessage"></div>
 
-  <script>
-   const COUNTED_REFLECTION_KEYS = [
-  1, 2, 3, 4, 5,
-  7, 8, 9, 10,
-  11, 12, 13, 14, 15,
-  16, 17, 18, 20,
-  21, 22, 23, 25,
-  26, 27, 28, 29, 30,
-  31, 32, 33
-];
-    
-    const STATUS_PAGE = "reflection3-summary.html";
+<script>
+  const COUNTED_REFLECTION_KEYS = [
+    1, 2, 3, 4, 5,
+    7, 8, 9, 10,
+    11, 12, 13, 14, 15,
+    16, 17, 18, 20,
+    21, 22, 23, 25,
+    26, 27, 28, 29, 30,
+    31, 32, 33
+  ];
 
-    let completed = 0;
+  const TOTAL_REFLECTIONS = COUNTED_REFLECTION_KEYS.length;
+  const STATUS_PAGE = "reflection3-summary.html";
 
-    for (let i = 1; i <= TOTAL_REFLECTIONS; i++) {
-      const value = localStorage.getItem("reflection3-" + i);
-      if (value && value.trim().length > 0) {
-        completed++;
-      }
+  let completed = 0;
+
+  COUNTED_REFLECTION_KEYS.forEach(i => {
+    const value = localStorage.getItem("reflection3-" + i);
+    if (value && value.trim()) {
+      completed++;
     }
+  });
 
-    const container = document.getElementById("completionMessage");
+  const container = document.getElementById("completionMessage");
 
-    if (completed === TOTAL_REFLECTIONS) {
-      container.innerHTML = `
-        <h1>Congratulations! 🎉</h1>
-        <p>You’ve completed the module!</p>
-        <p>Click "Next" for a final thank you...</p>
-      `;
-    } else {
-      container.innerHTML = `
-        <p><strong>You've completed ${completed} of ${TOTAL_REFLECTIONS} reflections. Want to complete the rest of them now?</strong></p>
-        <button onclick="window.location.href='${STATUS_PAGE}'">
-          Return to Reflections
-        </button>
-      `;
-    }
-  </script>
+  if (completed === TOTAL_REFLECTIONS) {
+    container.innerHTML = `
+      <h1>Congratulations! 🎉</h1>
+      <p>You’ve completed the module!</p>
+      <p>Click "Next" for a final thank you...</p>
+    `;
+  } else {
+    container.innerHTML = `
+      <p>
+        <strong>
+          You've completed ${completed} of ${TOTAL_REFLECTIONS} reflections.
+          Want to complete the rest of them now?
+        </strong>
+      </p>
+      <button onclick="window.location.href='${STATUS_PAGE}'">
+        Return to Reflections
+      </button>
+    `;
+  }
+</script>
+
 
 </body>
 </html>
