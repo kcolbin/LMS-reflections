@@ -112,7 +112,15 @@
   </script>
 
 <script>
-const totalReflections = 30;
+const COUNTED_REFLECTION_KEYS = [
+  1, 2, 3, 4, 5,
+  7, 8, 9, 10,
+  11, 12, 13, 14, 15,
+  16, 17, 18, 20,
+  21, 22, 23, 25,
+  26, 27, 28, 29, 30,
+  31, 32, 33
+];
 
 /* Titles shown WHEN COMPLETED */
 const completedTitles = [
@@ -202,14 +210,17 @@ const sections = [
 
 function updateProgressBar() {
   let completed = 0;
-  for (let i = 1; i <= totalReflections; i++) {
+
+  COUNTED_REFLECTION_KEYS.forEach(i => {
     const v = localStorage.getItem("reflection3-" + i);
     if (v && v.trim()) completed++;
-  }
+  });
+
   document.getElementById("progressBar").innerHTML =
-    `<strong>${completed} of ${totalReflections} reflections completed</strong>`;
+    `<strong>${completed} of ${COUNTED_REFLECTION_KEYS.length} reflections completed</strong>`;
 }
 
+  
 function showSummary() {
   updateProgressBar();
   let html = "";
