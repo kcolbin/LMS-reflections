@@ -99,7 +99,7 @@
         container.appendChild(block);
 
         // Load saved response
-        const saved = localStorage.getItem(`${STORAGE_PREFIX}-${qIndex}`);
+        const saved = localStorage.getItem(`${STORAGE_PREFIX}-${qIndex+1}`);
         if (saved) {
           document.getElementById(`response-${qIndex}`).value = saved;
         }
@@ -112,7 +112,7 @@
           .getElementById(`response-${qIndex}`)
           .value
           .trim();
-        localStorage.setItem(`${STORAGE_PREFIX}-${qIndex}`, value);
+        localStorage.setItem(`${STORAGE_PREFIX}-${qIndex+1}`, value);
       });
 
       const savedEl = document.getElementById("saved");
