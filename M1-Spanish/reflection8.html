@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>Time to reflect</title>
+  <title>Tiempo para reflexionar</title>
 
   <style>
     @font-face {
@@ -56,20 +56,20 @@
 
 <body>
 
-  <h2>Practicing C.A.T.C.H.</h2>
-  <h3>Imagine: Your 7-year-old player is running around, shouting, laughing... and NOT paying attention.</h3>
-  <p>What might be driving this behavior?</p>
+  <h2>Practicando C.A.T.C.H.</h2>
+  <h3>Imagina: Tu jugador/a de 7 años está corriendo, gritando, riendo... y NO está prestando atención.</h3>
+  <p>¿Qué podría estar causando este comportamiento?</p>
 
   <!-- FIRST INPUT -->
   <textarea id="response1"></textarea>
 
   <!-- SECOND QUESTION -->
-  <p>How can you use C.A.T.C.H. and empathy to respond effectively?</p>
+  <p>¿Cómo puedes usar C.A.T.C.H. y la empatía para responder de manera efectiva?</p>
 
   <!-- SECOND INPUT -->
   <textarea id="response2"></textarea>
 
-  <button onclick="saveReflection()">Save Reflection</button>
+  <button onclick="saveReflection()">Guardar Reflexión</button>
   <div id="saved" class="saved-note"></div>
 
   <script>
@@ -98,7 +98,7 @@
       localStorage.setItem(REFLECTION_KEY_1, text1);
       localStorage.setItem(REFLECTION_KEY_2, text2);
 
-      document.getElementById("saved").innerText = "Saved!";
+      document.getElementById("saved").innerText = "¡Guardado!";
       setTimeout(() => {
         document.getElementById("saved").innerText = "";
       }, 1500);
