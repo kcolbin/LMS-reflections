@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>Time to reflect</title>
+  <title>Tiempo para reflexionar</title>
 
   <style>
     /* Load PolySans — replace URLs with your file locations */
@@ -56,12 +56,12 @@
 
 <body>
 
-  <h2>What qualities do you have that make you uniquely yourself?</h2>
-  <p>For example: background, education, socioeconomic status, hobbies, abilities, values, language, culture…
+  <h2>¿Qué cualidades tienes que te hacen único/a?</h2>
+  <p>Por ejemplo: experiencia de vida, educación, nivel socioeconómico, pasatiempos, habilidades, valores, idioma, cultura…
   </p>
 
   <textarea id="response"></textarea>
-  <button onclick="saveReflection()">Save Reflection</button>
+  <button onclick="saveReflection()">Guardar Reflexión</button>
 
   <div id="saved" class="saved-note"></div>
 
@@ -87,7 +87,7 @@
     function saveReflection() {
       const text = document.getElementById("response").value.trim();
       localStorage.setItem(REFLECTION_ID, text);
-      document.getElementById("saved").innerText = "Saved!";
+      document.getElementById("saved").innerText = "¡Guardado!";
       setTimeout(() => {
         document.getElementById("saved").innerText = "";
       }, 1500);
