@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>Time to reflect</title>
+  <title>Tiempo para reflexionar</title>
 
   <style>
     /* Load PolySans — replace URLs with your file locations */
@@ -56,11 +56,11 @@
 
 <body>
 
-  <h2>Make a plan for creating a team code with your players.</h2>
-  <p>Consider when, where, the process you'll use…</p>
+  <h2>Haz un plan para crear un código de equipo con tus jugadores/as.</h2>
+  <p>Considera cuándo, dónde, el proceso que usarás…</p>
 
   <textarea id="response"></textarea>
-  <button onclick="saveReflection()">Save Reflection</button>
+  <button onclick="saveReflection()">Guardar Reflexión</button>
 
   <div id="saved" class="saved-note"></div>
 
@@ -86,7 +86,7 @@
     function saveReflection() {
       const text = document.getElementById("response").value.trim();
       localStorage.setItem(REFLECTION_ID, text);
-      document.getElementById("saved").innerText = "Saved!";
+      document.getElementById("saved").innerText = "¡Guardado!";
       setTimeout(() => {
         document.getElementById("saved").innerText = "";
       }, 1500);
