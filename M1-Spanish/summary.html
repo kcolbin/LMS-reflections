@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Summary of your coach-mentor training reflections</title>
+<title>Resumen de tus reflexiones del entrenamiento de entrenador-mentor</title>
  <style>
     /* Load PolySans — replace URLs with your file locations */
     @font-face {
@@ -54,11 +54,11 @@
 </style>
 </head>
 <body>
-<h2>Your coach-mentor training reflections</h2>
+<h2>Tus reflexiones del entrenamiento de entrenador-mentor</h2>
 <div class="summary" id="summaryDisplay"></div>
   <button onclick="downloadPDF()" 
         style="margin: 20px 0; padding: 12px 18px; font-size: 16px;">
-  Download your reflections as PDF
+  Descarga tus reflexiones en PDF
 </button>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -79,20 +79,20 @@ const totalReflections = 14;
 
 // MANUALLY ENTER TITLES HERE (index 0 = reflection1)
 const titles = [
-  "The qualities that make me uniquely myself:",
-  "Some strengths that exist in my community and how I might build on them:",
-  "What I know about the challenges my players might be dealing with and how can I learn more:",
-  "Some strategies I can use to make a connection with my players:",
-  "My plan for creating a team code with my players:",
-  "What I can do to create consistency:",
-  "My techniques for checking myself:",
-  "What might be driving my 7-year-old player to run around, shout, laugh... and NOT pay attention:",
-  "How I can use C.A.T.C.H. and empathy to respond effectively to my 7-year-old player not paying attention:",
-  "What might be driving my 14-year-old player to refuse to do the 300m hurdles:",
-  "How I can use C.A.T.C.H. and empathy to respond effectively to my 14-year-old player not paying attention:",
-  "2 strategies I can use to uphold the team code:",
-  "How I can help my players make a positive transition into the end of a season:",
-  "How I can give closure at the end of the season:",
+  "Las cualidades que me hacen único/a:",
+"Algunas fortalezas que existen en mi comunidad y cómo podría aprovecharlas:",
+"Lo que sé sobre los desafíos que mis jugadores/as podrían estar enfrentando y cómo puedo aprender más:",
+"Algunas estrategias que puedo usar para conectar con mis jugadores/as:",
+"Mi plan para crear un código de equipo con mis jugadores/as:",
+"Lo que puedo hacer para crear consistencia:",
+"Mis técnicas para controlarme:",
+"Lo que podría estar causando que mi jugador/a de 7 años corra, grite, ría... y NO preste atención:",
+"Cómo puedo usar C.A.T.C.H. y la empatía para responder de manera efectiva a mi jugador/a de 7 años que no presta atención:",
+"Lo que podría estar causando que mi jugador/a de 14 años se niegue a hacer las vallas de 300 metros:",
+"Cómo puedo usar C.A.T.C.H. y la empatía para responder de manera efectiva a mi jugador/a de 14 años que no presta atención:",
+"2 estrategias que puedo usar para cumplir con el código de equipo:",
+"Cómo puedo ayudar a mis jugadores/as a hacer una transición positiva hacia el final de la temporada:",
+"Cómo puedo darle un cierre al final de la temporada:",
 ];
 
 function showSummary() {
@@ -118,7 +118,7 @@ function showSummary() {
     `;
   }
 
-  summaryEl.innerHTML = html || "No reflections saved yet.";
+  summaryEl.innerHTML = html || "Aún no hay reflexiones guardadas.";
 }
 
   
@@ -179,7 +179,7 @@ y += renderHeight + 50;   // move down after logo
   doc.setFontSize(22);
 
   // Wrap header text
-  const header = "Your Reflections Summary";
+  const header = "Resumen de tus Reflexiones";
   const headerLines = doc.splitTextToSize(header, usableWidth);
   headerLines.forEach(line => {
     if (y > pageHeight - 50) { doc.addPage(); y = 40; }
@@ -220,7 +220,7 @@ y += renderHeight + 50;   // move down after logo
     y += 20; // spacing between reflections
   }
 
-  doc.save("Reflections.pdf");
+  doc.save("Reflexiones.pdf");
 }
 
 // Make sure your summary is shown on page load
