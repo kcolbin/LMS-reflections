@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>Time to reflect</title>
+  <title>Tiempo para reflexionar</title>
 
   <style>
     /* Load PolySans — replace URLs with your file locations */
@@ -56,11 +56,11 @@
 
 <body>
 
-  <h2>What can you do to create consistency?</h2>
-  <p>For example, show up on time, treat players the same when they make a mistake…</p>
+  <h2>¿Qué puedes hacer para crear consistencia?</h2>
+  <p>Por ejemplo: llegar a tiempo, tratar a los jugadores/as de la misma manera cuando cometen un error…</p>
 
   <textarea id="response"></textarea>
-  <button onclick="saveReflection()">Save Reflection</button>
+  <button onclick="saveReflection()">Guardar Reflexión</button>
 
   <div id="saved" class="saved-note"></div>
 
@@ -86,7 +86,7 @@
     function saveReflection() {
       const text = document.getElementById("response").value.trim();
       localStorage.setItem(REFLECTION_ID, text);
-      document.getElementById("saved").innerText = "Saved!";
+      document.getElementById("saved").innerText = "¡Guardado!";
       setTimeout(() => {
         document.getElementById("saved").innerText = "";
       }, 1500);
