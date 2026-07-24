@@ -91,16 +91,16 @@
 <h1>Your Coach-Mentor Training Reflections</h1>
 
 <div id="progressBar"></div>
-  
-  <button onclick="downloadPDF()" 
+
+  <button onclick="downloadPDF()"
         style="margin: 20px 0; padding: 12px 18px; font-size: 16px;">
   Download your reflections as a PDF
 </button>
-  
+
 <div id="summaryDisplay"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  
+
   <script src="PolySans-normal.js"></script>
   <script src="PolySans-bold.js"></script>
   <script>
@@ -190,6 +190,20 @@ const pendingTitles = [
 "How does empathy transform the experience for players?",
   ];
 
+/* Map reflection number -> title. The numbering above has intentional
+   gaps (6, 19, 24 are skipped because those questions get revisited /
+   re-answered under a different number), while completedTitles and
+   pendingTitles are packed arrays in the same order as
+   COUNTED_REFLECTION_KEYS. Building this lookup keeps every title
+   aligned to its actual reflection number instead of drifting after
+   each gap. */
+const completedTitleByNum = {};
+const pendingTitleByNum = {};
+COUNTED_REFLECTION_KEYS.forEach((num, idx) => {
+  completedTitleByNum[num] = completedTitles[idx];
+  pendingTitleByNum[num] = pendingTitles[idx];
+});
+
 /* Sections now include section-level reflection page */
 const sections = [
   { title: "Part One: Challenging Behavior", video: "vid3-1.html", startPage: "subreflection3-1.html", reflections: [1,2] },
@@ -220,7 +234,7 @@ function updateProgressBar() {
     `<strong>${completed} of ${COUNTED_REFLECTION_KEYS.length} reflections completed</strong>`;
 }
 
-  
+
 function showSummary() {
   updateProgressBar();
   let html = "";
@@ -243,7 +257,7 @@ function showSummary() {
       if (!isComplete) sectionHasIncomplete = true;
 
       html += `<div class="reflection-item">`;
-      html += `<h3>${isComplete ? "✔︎ " + completedTitles[i-1] : "○ " + pendingTitles[i-1]}</h3>`;
+      html += `<h3>${isComplete ? "✔︎ " + completedTitleByNum[i] : "○ " + pendingTitleByNum[i]}</h3>`;
       html += isComplete
         ? `<p>${stored}</p>`
         : `<p class="not-complete">Reflection not yet completed</p>`;
@@ -270,7 +284,7 @@ function showSummary() {
   const { jsPDF } = window.jspdf;
 
   // --- CONFIG ---
-  const logoURL = "https://images.squarespace-cdn.com/content/5b1dd63f620b85685e2e9978/15782fbc-a9dc-4f5b-94f2-a6f9cf73c65a/Foundation-YC-lockup-sm.png"; 
+  const logoURL = "https://images.squarespace-cdn.com/content/5b1dd63f620b85685e2e9978/15782fbc-a9dc-4f5b-94f2-a6f9cf73c65a/Foundation-YC-lockup-sm.png";
   const pageWidth = 612;   // Letter size width in pt (8.5in * 72)
   const pageHeight = 792;  // Letter size height in pt (11in * 72)
   const leftMargin = 60;
@@ -317,7 +331,7 @@ const renderHeight = 105 * scale;
 doc.addImage(logoData, "PNG", leftMargin, y, renderWidth, renderHeight);
 y += renderHeight + 50;   // move down after logo
 }
- 
+
   // Add main header
   doc.setFont("PolySans", "bold");
   doc.setFontSize(22);
@@ -338,7 +352,7 @@ y += renderHeight + 50;   // move down after logo
     const stored = localStorage.getItem(key);
     if (!stored) continue;
 
-    const title = completedTitles[i - 1] || `Reflection ${i}`;
+    const title = completedTitleByNum[i] || `Reflection ${i}`;
 
     // Add title in bold
     doc.setFont("PolySans", "bold");
@@ -366,7 +380,7 @@ y += renderHeight + 50;   // move down after logo
 
   doc.save("Reflections.pdf");
 }
-  
+
 window.onload = showSummary;
 </script>
 
