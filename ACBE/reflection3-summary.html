@@ -333,12 +333,12 @@ y += renderHeight + 50;   // move down after logo
   y += 20;
 
   // --- Loop through reflections ---
-  for (let i = 1; i <= totalReflections; i++) {
+  for (const i of COUNTED_REFLECTION_KEYS) {
     const key = "reflection3-" + i;
     const stored = localStorage.getItem(key);
     if (!stored) continue;
 
-    const title = titles[i - 1] || `Reflection ${i}`;
+    const title = completedTitles[i - 1] || `Reflection ${i}`;
 
     // Add title in bold
     doc.setFont("PolySans", "bold");
