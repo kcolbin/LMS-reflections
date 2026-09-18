@@ -290,7 +290,7 @@ y += renderHeight + 50;   // move down after logo
     const stored = localStorage.getItem(key);
     if (!stored) continue;
 
-    const title = titles[i - 1] || `Reflection ${i}`;
+    const title = completedTitles[i - 1] || `Reflection ${i}`;
 
     // Add title in bold
     doc.setFont("PolySans", "bold");
